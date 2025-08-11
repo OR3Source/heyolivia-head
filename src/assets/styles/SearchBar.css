@@ -1,0 +1,111 @@
+/* src/assets/styles/SearchResults.css */
+
+.search-page {
+    min-height: 100vh;
+    padding-top: 140px;
+    background-image: url("/src/assets/images/lg-black-bg.jpeg");
+    background-size: cover;
+    background-color: black;
+}
+
+.search-content {
+    padding: 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-heading {
+    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+    color: rgb(228,215,243);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+}
+
+.search-results {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-image: url("https://i.pinimg.com/1200x/02/2d/b0/022db0a8e1ebd4ad44102e9b62d7960a.jpg");
+    background-size: cover;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.search-card-text {
+    flex: 1;
+}
+
+.search-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+}
+
+.search-card-description {
+    font-size: 1rem;
+    color: rgb(200, 180, 220);
+    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+}
+
+.search-no-results {
+    margin-top: 2rem;
+    font-size: 1rem;
+    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+    color: #ef8181;
+    text-align: center;
+    max-width: 600px;
+}
+
+/* ✅ Mobile styles */
+@media screen and (max-width: 480px) {
+    .search-content {
+        padding: 1rem;
+        align-items: stretch;
+    }
+
+    .search-heading,
+    .search-results,
+    .search-no-results {
+        max-width: 100%;
+        align-self: stretch;
+    }
+
+    .search-card {
+        width: 100%;
+    }
+    .search-page {
+
+        background-image: url("/src/assets/images/ss-black-bg.jpeg");
+        background-size: cover;
+    }
+}
