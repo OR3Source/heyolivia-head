@@ -88,7 +88,7 @@
 .side-article.mobile-visible { display:flex; }
 .outline-wrapper .corner-eye { position:absolute; bottom:-20px; left:-10px; width:100px; height:55px; z-index:15; -webkit-user-drag:none; }
 }
-@media (max-width:540px){ .outline-wrapper .corner-eye { position:absolute; bottom:-30px; left:-15px; width:140px; height:65px; z-index:15; -webkit-user-drag:none; } }
+@media (max-width:540px){ #section1.section1 {margin-top: -75px !important;} .outline-wrapper .corner-eye { position:absolute; bottom:-30px; left:-15px; width:140px; height:65px; z-index:15; -webkit-user-drag:none; } }
 
 /* ========================= UTILITY / FALLBACKS ========================= */
 .side-article > div { min-width:0; }
