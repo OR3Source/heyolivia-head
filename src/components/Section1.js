@@ -7,13 +7,12 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import newsData from '../data/news-articles.json';
 import cornerEye from '../assets/images/section1-images/OLIVIA-00014_C_Overlay_Eye1.png';
+
 function Section1() {
     const [page, setPage] = useState(0);
     const [lockedHeight, setLockedHeight] = useState(0);
     const [mobileArticleIndex, setMobileArticleIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
-
-    // Swipe detection states
     const [touchStart, setTouchStart] = useState(null);
     const [touchEnd, setTouchEnd] = useState(null);
     const [isSwipeInProgress, setIsSwipeInProgress] = useState(false);
@@ -26,20 +25,15 @@ function Section1() {
     const sideRef = useRef(null);
     const sideWrapperRef = useRef(null);
 
-    // Swipe detection constants
-    const minSwipeDistance = 50; // Minimum distance for a swipe
-    const maxVerticalDistance = 100; // Maximum vertical movement to still count as horizontal swipe
+    const minSwipeDistance = 50;
+    const maxVerticalDistance = 100;
 
-    // Detect Safari and add class to html element
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userUser)) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
         document.documentElement.classList.add('safari');
     }
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 480);
-        };
-
+        const checkMobile = () => setIsMobile(window.innerWidth <= 480);
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
@@ -50,35 +44,25 @@ function Section1() {
             if (window.innerWidth > 900) {
                 const featureHeight = featureRef.current?.offsetHeight || 0;
                 const sideHeight = sideRef.current?.offsetHeight || 0;
-                const maxHeight = Math.max(featureHeight, sideHeight);
-                setLockedHeight(maxHeight);
+                setLockedHeight(Math.max(featureHeight, sideHeight));
             } else {
                 setLockedHeight(0);
             }
         };
-
         updateHeights();
         window.addEventListener('resize', updateHeights);
         return () => window.removeEventListener('resize', updateHeights);
     }, [page, paginated]);
 
-    // Swipe handlers
     const onTouchStart = (e) => {
         setTouchEnd(null);
-        setTouchStart({
-            x: e.targetTouches[0].clientX,
-            y: e.targetTouches[0].clientY
-        });
+        setTouchStart({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY });
         setIsSwipeInProgress(true);
     };
 
     const onTouchMove = (e) => {
         if (!touchStart || !isSwipeInProgress) return;
-
-        setTouchEnd({
-            x: e.targetTouches[0].clientX,
-            y: e.targetTouches[0].clientY
-        });
+        setTouchEnd({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY });
     };
 
     const onTouchEnd = () => {
@@ -93,28 +77,12 @@ function Section1() {
 
         if (isHorizontalSwipe) {
             if (isMobile) {
-                // Mobile: individual article navigation
-                if (distanceX > 0) {
-                    // Swipe left - next article
-                    setMobileArticleIndex(prev =>
-                        prev < allArticles.length - 1 ? prev + 1 : prev
-                    );
-                } else {
-                    // Swipe right - previous article
-                    setMobileArticleIndex(prev =>
-                        prev > 0 ? prev - 1 : prev
-                    );
-                }
+                if (distanceX > 0) setMobileArticleIndex(prev => Math.min(prev + 1, allArticles.length - 1));
+                else setMobileArticleIndex(prev => Math.max(prev - 1, 0));
             } else {
-                // Desktop/Tablet: page navigation
                 const totalPages = Math.ceil(allArticles.length / articlesPerPage);
-                if (distanceX > 0) {
-                    // Swipe left - next page
-                    setPage(prev => prev < totalPages - 1 ? prev + 1 : prev);
-                } else {
-                    // Swipe right - previous page
-                    setPage(prev => prev > 0 ? prev - 1 : prev);
-                }
+                if (distanceX > 0) setPage(prev => Math.min(prev + 1, totalPages - 1));
+                else setPage(prev => Math.max(prev - 1, 0));
             }
         }
 
@@ -123,25 +91,22 @@ function Section1() {
         setTouchEnd(null);
     };
 
-    // Mobile pagination dots (no ellipsis)
-    const renderMobilePaginationDots = () => {
-        return allArticles.map((_, index) => (
-            <div
-                key={index}
-                className={`dot ${mobileArticleIndex === index ? 'active' : ''}`}
-                onClick={() => setMobileArticleIndex(index)}
-            />
-        ));
-    };
+    const renderMobilePaginationDots = () => allArticles.map((_, index) => (
+        <div
+            key={index}
+            className={`dot ${mobileArticleIndex === index ? 'active' : ''}`}
+            onClick={() => setMobileArticleIndex(index)}
+        />
+    ));
 
     return (
         <div className="section1-container">
             <div className="video-svg-container">
                 <video className="desktop-video" autoPlay muted loop playsInline>
-                    <source src={desktopVideo} type="video/mp4"/>
+                    <source src={desktopVideo} type="video/mp4" />
                 </video>
                 <video className="tablet-video" autoPlay muted loop playsInline>
-                    <source src={tabletVideo} type="video/mp4"/>
+                    <source src={tabletVideo} type="video/mp4" />
                 </video>
             </div>
 
@@ -171,40 +136,28 @@ function Section1() {
                         style={{ height: lockedHeight ? `${lockedHeight}px` : 'auto' }}
                     >
                         <div className="feature-image-wrapper">
-                            <img
-                                src="https://pbs.twimg.com/media/G0VSbU0XQAADWnV?format=jpg&name=large"
-                                alt="Feature News"
-                                className="feature-image"
-                            />
+                            <img src={newsData.featureArticle.img} alt="Feature News" className="feature-image" />
                         </div>
-
                         <div className="feature-content">
                             <h2>{newsData.featureArticle.title}</h2>
                             <p>{newsData.featureArticle.content}</p>
                         </div>
                     </div>
 
-                    {/* Side articles + dots wrapper WITH SWIPE FUNCTIONALITY */}
                     <div
                         className="side-articles-wrapper"
                         ref={sideWrapperRef}
                         onTouchStart={onTouchStart}
                         onTouchMove={onTouchMove}
                         onTouchEnd={onTouchEnd}
-                        style={{ touchAction: 'pan-y' }} // Allow vertical scrolling but handle horizontal swipes
+                        style={{ touchAction: 'pan-y' }}
                     >
-                        <div
-                            className="side-articles"
-                            ref={sideRef}
-                            style={{ height: lockedHeight ? `${lockedHeight}px` : 'auto' }}
-                        >
-                            {isMobile ? (
-                                allArticles.map((article, index) => (
+                        <div className="side-articles" ref={sideRef} style={{ height: lockedHeight ? `${lockedHeight}px` : 'auto' }}>
+                            {isMobile
+                                ? allArticles.map((article, index) => (
                                     <div
                                         key={index}
-                                        className={`side-article ${
-                                            index === mobileArticleIndex ? 'mobile-visible' : 'mobile-hidden'
-                                        }`}
+                                        className={`side-article ${index === mobileArticleIndex ? 'mobile-visible' : 'mobile-hidden'}`}
                                     >
                                         <img src={article.img} alt="News" />
                                         <div>
@@ -213,8 +166,7 @@ function Section1() {
                                         </div>
                                     </div>
                                 ))
-                            ) : (
-                                paginated.map((article, index) => (
+                                : paginated.map((article, index) => (
                                     <div className="side-article" key={index}>
                                         <img src={article.img} alt="News" />
                                         <div>
@@ -223,25 +175,15 @@ function Section1() {
                                         </div>
                                     </div>
                                 ))
-                            )}
+                            }
                         </div>
 
-                        {/* Mobile pagination dots */}
-                        {isMobile && (
-                            <div className="mobile-pagination-dots">
-                                {renderMobilePaginationDots()}
-                            </div>
-                        )}
+                        {isMobile && <div className="mobile-pagination-dots">{renderMobilePaginationDots()}</div>}
 
-                        {/* Desktop/Tablet pagination dots */}
                         {!isMobile && allArticles.length > articlesPerPage && (
                             <div className="pagination-dots">
                                 {[...Array(Math.ceil(allArticles.length / articlesPerPage))].map((_, i) => (
-                                    <div
-                                        key={i}
-                                        className={`dot ${page === i ? 'active' : ''}`}
-                                        onClick={() => setPage(i)}
-                                    />
+                                    <div key={i} className={`dot ${page === i ? 'active' : ''}`} onClick={() => setPage(i)} />
                                 ))}
                             </div>
                         )}

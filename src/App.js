@@ -42,7 +42,7 @@ function App() {
                    heyolivia is coming soon.
                 </div>
             </div>
-            <FallingStars enabled={true}/>
+            <FallingStars enabled={false}/>
             <NavBar/>
             <Routes>
                 <Route
