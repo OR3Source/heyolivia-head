@@ -1,0 +1,43 @@
+{
+    "fileName": "news-articles.json",
+    "lastModified": "09/13/2025",
+    "lastModifiedTime":"8:30 PM",
+    "owner": "OR3SOURCE",
+    "featureArticle": {
+      "title": "GUTS 2-YEAR ANNIVERSARY!!!",
+      "content": "We celebrated the two-year anniversary of GUTS, and new pictures from BTS of Olivia were posted. GUTS has since become a groundbreaking and critically acclaimed album. Thank you, Olivia, for sharing this album with us."
+    },
+    "sideArticles": [
+      {
+        "img": "https://i.pinimg.com/736x/3e/4c/42/3e4c4226351f82ce4c9e963ad12ccfd5.jpg",
+        "title": "GUTS TOUR BOOK",
+        "desc": "Olivia Rodrigo has released her GUTS Tour Book, available for pre-order now."
+      },
+      {
+        "img": "https://pbs.twimg.com/media/G0rxqEhasAAWE_K?format=jpg&name=large",
+        "title": "YES, SHES ALIVE!!!",
+        "desc": "New images of Olivia from Owen Gould."
+      },
+      {
+        "img": "https://pbs.twimg.com/media/G0qauCkWEAAGyke?format=jpg&name=small",
+        "title": "CHART UPDATE",
+        "desc": "Olivia Rodrigo's live performance from Glastonbury has already surpassed 500,000 streams on Spotify."
+      },
+      {
+        "img": "https://pbs.twimg.com/media/G0pkS94X0AAVRwb?format=jpg&name=large",
+        "title": "FIRST LOOK: OLIVIA IN LILITH FAIR DOC",
+        "desc": "Exclusive look at what's brewing internally."
+      },
+      {
+        "img": "https://pbs.twimg.com/media/G0rRIdIawAAu6gf?format=jpg&name=small",
+        "title": "GLASTONBURY LIVE VINYL & CD",
+        "desc": "Olivia has released two variants of her Glastonbury live performance: vinyl and CD. All proceeds go to Doctors Without Borders (MSF)."
+      },
+      {
+        "img": "https://pbs.twimg.com/media/G0qKxolXUAAr4xF?format=jpg&name=small",
+        "title": "SPOTIFY UPDATE?",
+        "desc": "Olivia Rodrigo's 'Artist's Pick' playlist is now titled 'Olivia Rodrigo Complete' instead of the Guts World Tour set list."
+      }
+    ]
+  }
+  

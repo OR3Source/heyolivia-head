@@ -5,54 +5,33 @@ import star3 from '../assets/stars/star3.png';
 import '../assets/styles/sections/Section1.css';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
-
-const allArticles = [
-    {
-        img: 'https://i.pinimg.com/736x/3e/4c/42/3e4c4226351f82ce4c9e963ad12ccfd5.jpg',
-        title: 'QUICK UPDATE',
-        desc: 'Short insight into what\'s happening behind the scenes.'
-    },
-    {
-        img: 'https://i.pinimg.com/1200x/db/b6/e4/dbb6e417db99e98d827b708595d9859a.jpg',
-        title: 'IS CASE YOU MISSED IT',
-        desc: 'A recap of recent highlights and ongoing stories.'
-    },
-    {
-        img: 'https://i.pinimg.com/1200x/12/52/5b/12525b5474d7c0e458747f0ab00f5245.jpg',
-        title: 'COMING SOON',
-        desc: 'What\'s next on the horizon — a sneak peek ahead.'
-    },
-    {
-        img: 'https://i.pinimg.com/1200x/64/49/03/644903da18b91d4f84b4f229653eafc1.jpg',
-        title: 'BEHIND THE CURTAIN',
-        desc: 'Exclusive look at what\'s brewing internally.'
-    },
-    {
-        img: 'https://i.pinimg.com/736x/0d/1b/7b/0d1b7b6ea4d99b26a34d7671432cbc4c.jpg',
-        title: 'FAN REACTIONS',
-        desc: 'How the community is responding to the latest drop.'
-    },
-    {
-        img: 'https://i.pinimg.com/736x/32/66/c6/3266c624ea7b165cd603327413e4c50b.jpg',
-        title: 'NEXT STEPS',
-        desc: 'Where things are headed from here.'
-    },
-];
-
+import newsData from '../data/news-articles.json';
+import cornerEye from '../assets/images/section1-images/OLIVIA-00014_C_Overlay_Eye1.png';
 function Section1() {
     const [page, setPage] = useState(0);
     const [lockedHeight, setLockedHeight] = useState(0);
     const [mobileArticleIndex, setMobileArticleIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
+    // Swipe detection states
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+    const [isSwipeInProgress, setIsSwipeInProgress] = useState(false);
+
     const articlesPerPage = 4;
+    const allArticles = newsData.sideArticles;
     const paginated = allArticles.slice(page * articlesPerPage, (page + 1) * articlesPerPage);
 
     const featureRef = useRef(null);
     const sideRef = useRef(null);
+    const sideWrapperRef = useRef(null);
+
+    // Swipe detection constants
+    const minSwipeDistance = 50; // Minimum distance for a swipe
+    const maxVerticalDistance = 100; // Maximum vertical movement to still count as horizontal swipe
 
     // Detect Safari and add class to html element
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userUser)) {
         document.documentElement.classList.add('safari');
     }
 
@@ -82,6 +61,67 @@ function Section1() {
         window.addEventListener('resize', updateHeights);
         return () => window.removeEventListener('resize', updateHeights);
     }, [page, paginated]);
+
+    // Swipe handlers
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart({
+            x: e.targetTouches[0].clientX,
+            y: e.targetTouches[0].clientY
+        });
+        setIsSwipeInProgress(true);
+    };
+
+    const onTouchMove = (e) => {
+        if (!touchStart || !isSwipeInProgress) return;
+
+        setTouchEnd({
+            x: e.targetTouches[0].clientX,
+            y: e.targetTouches[0].clientY
+        });
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd || !isSwipeInProgress) {
+            setIsSwipeInProgress(false);
+            return;
+        }
+
+        const distanceX = touchStart.x - touchEnd.x;
+        const distanceY = Math.abs(touchStart.y - touchEnd.y);
+        const isHorizontalSwipe = Math.abs(distanceX) > minSwipeDistance && distanceY < maxVerticalDistance;
+
+        if (isHorizontalSwipe) {
+            if (isMobile) {
+                // Mobile: individual article navigation
+                if (distanceX > 0) {
+                    // Swipe left - next article
+                    setMobileArticleIndex(prev =>
+                        prev < allArticles.length - 1 ? prev + 1 : prev
+                    );
+                } else {
+                    // Swipe right - previous article
+                    setMobileArticleIndex(prev =>
+                        prev > 0 ? prev - 1 : prev
+                    );
+                }
+            } else {
+                // Desktop/Tablet: page navigation
+                const totalPages = Math.ceil(allArticles.length / articlesPerPage);
+                if (distanceX > 0) {
+                    // Swipe left - next page
+                    setPage(prev => prev < totalPages - 1 ? prev + 1 : prev);
+                } else {
+                    // Swipe right - previous page
+                    setPage(prev => prev > 0 ? prev - 1 : prev);
+                }
+            }
+        }
+
+        setIsSwipeInProgress(false);
+        setTouchStart(null);
+        setTouchEnd(null);
+    };
 
     // Mobile pagination dots (no ellipsis)
     const renderMobilePaginationDots = () => {
@@ -115,15 +155,14 @@ function Section1() {
             <div className="news-header">
                 <span className="last-updated">
                     <FaRegCalendarAlt className="calendar-icon" />
-                    Last Updated 09/05/2025 @ 8:30 PM
+                    Last Updated {newsData.lastModified} @ {newsData.lastModifiedTime}
                 </span>
             </div>
 
             <div className="outline-wrapper">
-
-                        <img src={star1} alt="star" className="desktop-star star1" />
-                        <img src={star3} alt="star" className="desktop-star star3" />
-
+                <img src={star1} alt="star" className="desktop-star star1" />
+                <img src={star3} alt="star" className="desktop-star star3" />
+                <img src={cornerEye} alt="corner eye" className="corner-eye" />
 
                 <div className="news-grid">
                     <div
@@ -140,16 +179,20 @@ function Section1() {
                         </div>
 
                         <div className="feature-content">
-                            <h2>GUTS 2-YEAR ANNIVERSARY!!!</h2>
-                            <p>
-                                A major development has just been revealed. Dive into the full story and explore the
-                                details shaping what comes next.
-                            </p>
+                            <h2>{newsData.featureArticle.title}</h2>
+                            <p>{newsData.featureArticle.content}</p>
                         </div>
                     </div>
 
-                    {/* Side articles + dots wrapper */}
-                    <div className="side-articles-wrapper">
+                    {/* Side articles + dots wrapper WITH SWIPE FUNCTIONALITY */}
+                    <div
+                        className="side-articles-wrapper"
+                        ref={sideWrapperRef}
+                        onTouchStart={onTouchStart}
+                        onTouchMove={onTouchMove}
+                        onTouchEnd={onTouchEnd}
+                        style={{ touchAction: 'pan-y' }} // Allow vertical scrolling but handle horizontal swipes
+                    >
                         <div
                             className="side-articles"
                             ref={sideRef}
