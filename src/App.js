@@ -1,122 +1,78 @@
-import React, { useState, useEffect } from 'react';
 import './assets/styles/App.css';
-import { animateScroll as scroll, scroller } from 'react-scroll';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import './assets/styles/NavBar.css';
+import './assets/styles/sections/Section.css';
+import './assets/styles/SearchBar.css';
 import NavBar from './components/NavBar';
-import SearchBar from './components/SearchBar';
-import SearchResults from './components/SearchResults';
-import GuitarPage from './pages/GuitarPage';
-import MicrophonePage from './pages/MicrophonePage';
+import SearchPage from './pages/SearchPage';
+import Footer from './components/Footer';
+import './assets/styles/sections/Section2.css';
+import './assets/styles/sections/Section1.css';
+import './assets/styles/sections/Section3.css';
+import './assets/styles/sections/Section4.css';
+import './assets/styles/sections/Section5.css';
+import Section2 from './components/Section2';
+import Section3 from './components/Section3';
+import Section4 from './components/Section4';
+import Section5 from './components/Section5';
+import FallingStars from './components/FallingStars';
+import './assets/styles/HeroSection.css';
+import './assets/styles/HeroSection.css';
+import Section1 from './components/Section1';
+import {Routes, Route, useLocation} from 'react-router-dom';
+import {useEffect} from 'react';
 
 function App() {
-  const [currentSection, setCurrentSection] = useState('home');
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+    const location = useLocation();
 
-  const toggleSearchBar = () => {
-    setIsSearchVisible(prev => {
-      const next = !prev;
-      if (!next) setCurrentSection('');
-      return next;
-    });
-  };
+    useEffect(() => {
+        if (location.pathname === '/' && location.state?.scrollToSection2) {
+            const timeout = setTimeout(() => {
+                const section = document.getElementById('section2');
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
 
-  const scrollToTop = () => {
-    scroll.scrollToTop({ duration: 600, smooth: 'easeInOutQuart' });
-  };
+            return () => clearTimeout(timeout);
+        }
+    }, [location]);
 
-  const scrollToSection = (sectionId) => {
-    scroller.scrollTo(sectionId, {
-      duration: 600,
-      delay: 0,
-      smooth: 'easeInOutQuart',
-      offset: -60,
-    });
-  };
-
-  useEffect(() => {
-    if (location.pathname === '/') {
-      if (!['home', 'events', 'other'].includes(currentSection)) {
-        setCurrentSection('home');
-      }
-    } else if (location.pathname.startsWith('/search')) {
-      setCurrentSection('search');
-    } else {
-      setCurrentSection('');
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    if (!isHomePage && isSearchVisible) {
-      setIsSearchVisible(false);
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      const searchBarEl = document.querySelector('.search-bar-wrapper');
-      const searchButtonEl = document.querySelector('[aria-label="Search"]');
-
-      if (
-          isSearchVisible &&
-          searchBarEl &&
-          !searchBarEl.contains(e.target) &&
-          searchButtonEl &&
-          !searchButtonEl.contains(e.target)
-      ) {
-        setIsSearchVisible(false);
-        setCurrentSection('');
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isSearchVisible]);
-
-  return (
-      <div className="App">
-        <NavBar
-            currentSection={currentSection}
-            setCurrentSection={setCurrentSection}
-            scrollToTop={scrollToTop}
-            scrollToSection={scrollToSection}
-            toggleSearchBar={toggleSearchBar}
-        />
-
-        <div className="header-bottom-fixed">
-          <img src={require('./assets/torn-paper.png')} alt="Torn Paper" />
+    return (
+        <div className="App">
+            <div className="message-container">
+                <div className="message-content">
+                   heyolivia is coming soon.
+                </div>
+            </div>
+            <FallingStars enabled={false}/>
+            <NavBar/>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <main className="main-content">
+                            <section className="section1" id="section1">
+                                <Section1/>
+                            </section>
+                            <section className="section2" id="section2">
+                                <Section2/>
+                            </section>
+                            <section className="section3" id="section3">
+                                <Section3/>
+                            </section>
+                            <section className="section4" id="section4">
+                                <Section4/>
+                            </section>
+                            <section className="section5" id="section5">
+                                <Section5/>
+                            </section>
+                        </main>
+                    }
+                />
+                <Route path="/search" element={<SearchPage/>}/>
+            </Routes>
+            <Footer/>
         </div>
-
-        {isHomePage && isSearchVisible && (
-            <SearchBar hideSearchBar={() => setIsSearchVisible(false)} />
-        )}
-
-        <Routes>
-          <Route
-              path="/"
-              element={
-                <main className="main-content">
-                  <section className="section" id="section1" name="section1">Section 1</section>
-                  <section className="section" id="section2" name="section2">Section 2</section>
-                  <section className="section" id="section3" name="section3">Section 3</section>
-                  <section className="section" id="section4" name="section4">Section 4</section>
-                  <section className="section" id="section5" name="section5">Section 5</section>
-                </main>
-              }
-          />
-          <Route path="/search" element={<SearchResults/>}/>
-          <Route path="/guitar" element={<GuitarPage/>}/>
-          <Route path="/microphone" element={<MicrophonePage/>}/>
-        </Routes>
-
-        <footer className="footer">
-          © 2024 heyolivia | we're not affiliated with olivia rodrigo
-        </footer>
-      </div>
-  );
+    );
 }
+
 
 export default App;

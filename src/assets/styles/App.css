@@ -1,267 +1,277 @@
-/* Reset and base styles */
+/* Reset styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.App {
-  min-height: 100vh;
-  background-color: #f8f8f8;
-  background-repeat: repeat-y, repeat;
-  background-position: left top, left top;
-  background-size: 100px auto, 100% 32px;
-}
-
-/* Header fixed at top */
-.header {
-  background-color: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.nav {
-  padding: 1rem 0;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-}
-
-.logo img {
-  height: 80px;
-  width: auto;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-links button {
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-links button.active {
-  background-color: rgb(55, 36, 91);
-  font-weight: bold;
-}
-
-/* Torn paper image fixed below header */
-.header-bottom-fixed {
-  position: fixed;
-  top: 90px;
-  left: 0;
-  width: 100%;
-  z-index: 999;
-}
-
-.header-bottom-fixed img {
-  width: 100%;
-  display: block;
-}
-
-/* Main content pushed below fixed header + image */
-.main-content {
-  padding-top: 100px;
-  text-align: center;
-}
-
-/* Sections */
-.section {
-  background-color: #f4f4f4;
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
-/* Footer - NOT fixed */
-.footer {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-family: "American Typewriter", sans-serif;
-  font-size: 0.738rem;
-}
-
-/* SearchBar wrapper positioning */
-.search-bar-wrapper {
-  position: fixed;
-  top: 160px;
-  left: 0;
-  width: 100%;
-  z-index: 1001;
-  background-color: rgb(55, 36, 91);
-  padding: 30px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.search-bar-embedded {
-  background-color: orange;
-  padding: 30px 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-
-/* Responsive styles */
-@media (max-width: 912px) {
-  .header-bottom-fixed {
-    position: fixed;
-    top: 110px;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-  }
-
-  .livies-title {
-    font-size: 2.5rem;
-    padding: 18px 50px;
-  }
-
-  .livies-hero {
-    width: 95%;
-    height: 500px;
-  }
-
-  .livies-caption {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-container {
+html, body, #root, .App {
+    height: 100%;
+    margin: 0;
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 0 1rem;
-  }
-
-  .logo img {
-    height: 60px;
-  }
-
-  .nav-links {
-    gap: 1rem;
-  }
-
-  .nav-links button {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .main-content {
-    padding-top: 190px;
-  }
-
-  .search-bar-wrapper {
-    top: 195px;
-  }
-
-  .header-bottom-fixed {
-    position: fixed;
-    top: 130px;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-  }
-
-  .livies-title {
-    font-size: 2rem;
-    padding: 15px 40px;
-    letter-spacing: 2px;
-  }
-
-  .livies-hero {
-    width: 100%;
-    height: 450px;
-  }
-
-  .livies-overlay {
-    padding: 30px 25px;
-  }
-
-  .livies-caption {
-    font-size: 1.1rem;
-    max-width: 400px;
-  }
 }
 
-@media (max-width: 480px) {
-  .nav-links {
-    flex-wrap: wrap;
+html {
+    /* was red before — now neutral to prevent red bleed */
+    background-color: #281d2d;
+}
+
+
+:root {
+    --dark-purple-color: #644c86;
+    --light-green-color: rgb(187, 247, 208);
+    --light-pink-color: #f0e7f4;
+    --darker-purple-color: #281d2d;
+    --light-purple-color: #c1b2d2;
+    --light-purpwhite-color: #f0e7f4;
+    --medium-purple-color: #ae9fdb;
+}
+
+/* Main app container */
+.App {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--highlight-red); /* red stays for the top message bar + sections */
+}
+
+/* =========================
+   MESSAGE CONTAINER
+   ========================= */
+.message-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #9b0808;
+    color: white;
+    z-index: 999;
+    text-align: center;
+    height: 32px;
+}
+
+.message-content {
+    padding: 8px 20px;
+    font-family: "Typeka", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+/* Push navbar down when message container is present */
+.App .header {
+    top: 32px !important;
+}
+
+.App .header-bottom-fixed {
+    top: calc(132px) !important; /* Original top (100px) + message height (32px) */
+}
+
+/* Adjust main content padding */
+.App .main-content {
+    flex: 1; /* <-- this makes content grow and pushes footer down */
+    padding-top: calc(190px + 32px) !important;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.footer {
+    background-color: #281d2d;
+    color: white;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 140px;   /* space so content doesn't overlap divider */
+    overflow: visible;
+    margin-top: auto; /* <-- footer is forced to bottom */
+    position: relative;
+    z-index: 1;
+}
+
+.footer p {
+    font-family: "American Typewriter", sans-serif;
+    font-size: 12px;
+    word-spacing: 1px;
+}
+
+/* Top torn-paper divider lives INSIDE footer */
+.footer .footer-top-divider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+    background: transparent !important;
+    z-index: 2;
+}
+
+.footer .footer-top-divider img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: -12vw;
+    background: transparent !important;
+    pointer-events: none;
+}
+
+/* Footer email */
+.footer-email {
+    display: flex;
+    align-items: center;
     justify-content: center;
-  }
-
-  .nav-links button {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.6rem;
-  }
-
-  .main-content {
-    padding-top: 210px;
-  }
-
-  .search-bar-wrapper {
-    top: 215px;
-  }
-
-  .livies-title {
-    font-size: 1.8rem;
-    padding: 12px 30px;
-    letter-spacing: 1px;
-  }
-
-  .livies-hero {
-    height: 400px;
-  }
-
-  .livies-overlay {
-    padding: 20px 15px;
-  }
-
-  .livies-caption {
-    font-size: 1rem;
-    max-width: 300px;
-    line-height: 1.4;
-  }
+    gap: 10px;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 20px;
 }
 
-@media (max-width: 470px) {
-  .main-content {
-    padding-top: 190px;
-  }
+.footer-email .material-symbols-outlined {
+    font-size: 24px;
+    color: white;
+}
 
-  .search-bar-wrapper {
-    top: 195px;
-  }
+.footer-email a {
+    text-decoration: none;
+    color: white;
+    font-family: "American Typewriter", sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
 
-  .header-bottom-fixed {
-    position: fixed;
-    top: 140px;
+.footer-email a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-email a span {
+    color: #a22020;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+/* Social media icons */
+.footer-middle {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.footer-middle .social-media-icons {
+    display: inline-flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-middle .social-media-icons .icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+/* =========================
+   TYPOGRAPHY / HEADLINE
+   ========================= */
+@font-face {
+    font-family: 'Typeka';
+    src: url('../fonts/TypekaBoldA Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../fonts/HelveticaNeue.woff') format('woff'),
+    url('../fonts/HelveticaNeueHeavyCondensed.otf') format('opentype');
+    font-style: normal;
+    font-display: swap; /* optional but recommended for better performance */
+}
+
+
+@font-face {
+    font-family: 'Barlow';
+    src: url('../fonts/BarlowSemiCondensed-Bold.ttf') format('truetype');
+    font-style: normal;
+}
+
+/* Headline container */
+.headline {
+    background: #efe7f4;
+    padding: 60px 0 0 60px;
+    text-align: left;
+}
+
+.headline-inner {
+    position: relative;
+    display: inline-block;
+}
+
+/* SHOP */
+.headline .eyebrow {
+    position: absolute;
     left: 0;
-    width: 100%;
-    z-index: 999;
-  }
+    bottom: calc(105%);
+    margin: 0;
+    font-family: Typeka, sans-serif;
+    font-weight: 400;
+    letter-spacing: .06em;
+    color: #9b0808;
+    font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+    z-index: 2;
+}
+
+/* THE LATEST */
+.headline h1 {
+    margin: 0;
+    color: #3d2b45;
+    font-family: "Helvetica Neue","Barlow", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    z-index: 1;
+}
+
+/* =========================
+   RESPONSIVE TWEAKS
+   ========================= */
+@media (max-width: 768px) {
+    .headline .eyebrow {
+        bottom: calc(100% + 0.5em);
+    }
+    .headline {
+        padding: 40px 0 0 20px;
+    }
+    .footer {
+        padding-top: 96px;
+    }
+    .footer .footer-top-divider img {
+        top: -64px;
+    }
+
+    .App .header-bottom-fixed {
+        top: calc(162px) !important;
+    }
+
+    .App .main-content {
+        padding-top: calc(222px) !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .headline .eyebrow {
+        bottom: calc(100% + 0.3em);
+    }
+    .footer .footer-top-divider img {
+        top: -54px;
+    }
+    .headline {
+        padding: 40px 0 0 20px;
+    }
+
+    .App .main-content {
+        padding-top: calc(242px) !important;
+    }
 }

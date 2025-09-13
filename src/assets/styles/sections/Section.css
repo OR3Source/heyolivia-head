@@ -1,0 +1,23 @@
+.section {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    margin: 0;
+    gap: 0;
+}
+
+.section:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}

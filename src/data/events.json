@@ -1,0 +1,64 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Olivia Hyde Park - FP",
+      "image": "https://i.pinimg.com/736x/17/c5/39/17c539bbf76d9249abee79e425a60398.jpg",
+      "status": "active",
+      "date": "2025-09-15",
+      "city": "Yosemite Valley",
+      "country": "United States",
+      "price": "FREE",
+      "eventType": "Fan Project",
+      "refLink": "https://x.com/OR3Source"
+    },
+    {
+      "id": 2,
+      "name": "OR3 - Fan Gathering",
+      "image": "https://i.pinimg.com/1200x/a1/68/66/a16866ecfa8e2ff2714ac331462f78f8.jpg",
+      "status": "pending",
+      "date": "2025-10-22",
+      "city": "Grand Canyon Village",
+      "country": "United Kingdom",
+      "price": 450,
+      "eventType": "Listening Party",
+      "refLink": "https://x.com/OR3Source2"
+    },
+    {
+      "id": 3,
+      "name": "Olivia Rodrigo OR3 Sing Along",
+      "image": "https://i.pinimg.com/736x/44/c3/06/44c30627d0d150e094f5327759c745c9.jpg",
+      "status": "cancelled",
+      "date": "2025-08-30",
+      "city": "Springdale",
+      "country": "United States",
+      "price": 180,
+      "eventType": "Livestream",
+      "refLink": "https://x.com/OR3Source3"
+    },
+    {
+      "id": 4,
+      "name": "Olivia OR3 Fan Event",
+      "image": "https://i.pinimg.com/736x/75/47/ef/7547efc65e5687bf95ff92e850fe0e4d.jpg",
+      "status": "postponed",
+      "date": "2025-11-05",
+      "city": "West Yellowstone",
+      "country": "United States",
+      "price": 380,
+      "eventType": "Fan Project",
+      "refLink": "https://x.com/OR3Source4"
+    },
+    {
+      "id": 5,
+      "name": "OR3 Tour Stop #1 Event",
+      "image": "https://i.pinimg.com/1200x/36/37/bf/3637bf15ff757084b250f995f79a8a4b.jpg",
+      "status": "expired",
+      "date": "2025-07-15",
+      "city": "Estes Park",
+      "country": "United States",
+      "price": 520,
+      "eventType": "Listening Party",
+      "refLink": "https://x.com/OR3Source5"
+    }
+  ]
+}

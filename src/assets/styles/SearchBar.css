@@ -1,111 +1,46 @@
-/* src/assets/styles/SearchResults.css */
-
-.search-page {
-    min-height: 100vh;
-    padding-top: 140px;
-    background-image: url("/src/assets/images/lg-black-bg.jpeg");
-    background-size: cover;
-    background-color: black;
-}
-
-.search-content {
-    padding: 2rem;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-heading {
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
-    color: rgb(228,215,243);
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 0.5rem;
-    margin-bottom: 2rem;
+/* SearchBar wrapper positioning */
+.search-bar-wrapper {
+    position: fixed;
+    top: 200px; /* clears header + header-bottom-fixed */
+    left: 0;
     width: 100%;
-    max-width: 800px;
-    text-align: left;
-}
-
-.search-results {
-    margin-top: 1rem;
+    z-index: 1001;
+    background-color: #281d2d;
+    padding: 30px 0;
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 800px;
+    justify-content: center;
+    font-family: Typeka, 'American Typewriter',sans-serif;
 }
 
-.search-card {
+.search-bar-embedded {
+    background-color: orange;
+    padding: 30px 0;
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-image: url("https://i.pinimg.com/1200x/02/2d/b0/022db0a8e1ebd4ad44102e9b62d7960a.jpg");
-    background-size: cover;
-    padding: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    justify-content: center;
     width: 100%;
-    box-sizing: border-box;
 }
 
-.search-card-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.search-card-text {
-    flex: 1;
-}
-
-.search-card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
-}
-
-.search-card-description {
-    font-size: 1rem;
-    color: rgb(200, 180, 220);
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
-}
-
-.search-no-results {
-    margin-top: 2rem;
-    font-size: 1rem;
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
-    color: #ef8181;
-    text-align: center;
-    max-width: 600px;
-}
-
-/* ✅ Mobile styles */
-@media screen and (max-width: 480px) {
-    .search-content {
-        padding: 1rem;
-        align-items: stretch;
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .search-bar-wrapper {
+        top: 185px; /* header-bottom-fixed at 130px, image ~70px */
     }
+}
 
-    .search-heading,
-    .search-results,
-    .search-no-results {
-        max-width: 100%;
-        align-self: stretch;
+@media (max-width: 768px) {
+    .search-bar-wrapper {
+        top: 190px; /* header-bottom-fixed at 130px, image ~80px */
     }
+}
 
-    .search-card {
-        width: 100%;
+@media (max-width: 480px) {
+    .search-bar-wrapper {
+        top: 180px; /* header-bottom-fixed at 140px, image ~80px */
     }
-    .search-page {
+}
 
-        background-image: url("/src/assets/images/ss-black-bg.jpeg");
-        background-size: cover;
+@media (max-width: 400px) {
+    .search-bar-wrapper {
+        top: 170px;
     }
 }

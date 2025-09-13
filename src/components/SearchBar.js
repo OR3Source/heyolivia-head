@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     InputBase,
     IconButton,
@@ -7,21 +8,18 @@ import {
     ClickAwayListener,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from 'react-router-dom';
+import '../assets/styles/SearchBar.css';
 
 function SearchBar({ hideSearchBar }) {
     const [query, setQuery] = useState('');
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!query.trim()) {
-            setError('Please enter a search term.');
-            return;
+        if (query.trim()) {
+            hideSearchBar();
+            navigate(`/search?q=${encodeURIComponent(query.trim())}`);
         }
-        setError('');
-        navigate(`/search?q=${encodeURIComponent(query.trim())}`);
     };
 
     const searchBarContent = (
@@ -47,7 +45,7 @@ function SearchBar({ hideSearchBar }) {
                         <InputBase
                             sx={{
                                 flex: 1,
-                                color: 'rgb(162,126,194)',
+                                color: 'rgb(172,135,204)',
                                 padding: '4px 8px',
                                 fontSize: '1rem',
                                 fontFamily: `'American Typewriter', 'Courier New', Courier, monospace`
@@ -55,7 +53,6 @@ function SearchBar({ hideSearchBar }) {
                             placeholder="Search"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            onDoubleClick={hideSearchBar}
                         />
                         <IconButton
                             sx={{ color: 'white', padding: '6px' }}
@@ -64,16 +61,6 @@ function SearchBar({ hideSearchBar }) {
                             <SearchIcon />
                         </IconButton>
                     </Paper>
-                    {error && (
-                        <div style={{
-                            color: '#ef8181',
-                            fontSize: '0.85rem',
-                            marginTop: '5px',
-                            fontFamily: `'American Typewriter', 'Courier New', Courier, monospace`
-                        }}>
-                            {error}
-                        </div>
-                    )}
                 </div>
             </div>
         </ClickAwayListener>

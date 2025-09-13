@@ -1,0 +1,21 @@
+#section4.section4 {
+    background-color: black !important;
+    padding: 0 !important;
+    max-height: 949px !important;
+    display: block !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+    border-bottom: none !important;
+}
+
+#section4.section4 h2 {
+    display: none; /* Hide any default h2 headings */
+}
+
+/* Section2 specific styles */
+.section4-container {
+    background-image: url("/src/assets/images/section4-images/section4-background.jpeg");
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
