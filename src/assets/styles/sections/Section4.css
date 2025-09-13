@@ -16,5 +16,6 @@
 .section4-container {
     background-image: url("/src/assets/images/section4-images/section4-background.jpeg");
     background-size: cover;
+    height: 949px;
     color: white;
 }
