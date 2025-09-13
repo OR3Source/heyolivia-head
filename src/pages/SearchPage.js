@@ -4,9 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import eventsData from '../data/events.json';
 import '../assets/styles/SearchPage.css';
-import footerTop from '../assets/images/footer/footer-top-new.png';
-
-
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
