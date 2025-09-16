@@ -189,7 +189,7 @@ const Section2 = () => {
             <div className="filter-mobile-trigger">
                 <button className="filter-trigger-btn" onClick={() => setIsPanelOpen(true)}>
                     <img src={filterImage} alt="Filter Icon" className="filter-trigger-icon" />
-                    <span>filter events</span>
+                    <span>Filter events</span>
                 </button>
             </div>
 
