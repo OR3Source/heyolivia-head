@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import '../assets/styles/sections/Section2.css';
 import '../assets/styles/new-EventCard.css';
 import eventsData from '../data/events.json';
 import filterImage from '../assets/images/svg/172623a0-6823-4218-934f-a84504fa1768.svg';
 import bgImgEventHeader from '../assets/images/headers/section-headers-heyolivia.png';
+import star2 from '../assets/stars/star2.png';
 import EventCarousel from './EventCarousel';
 
 const Section2 = () => {
@@ -69,94 +70,153 @@ const Section2 = () => {
     };
     const handleClearAll = () => setFilters({ city: [], country: [], event: [], date: [], price: [], other: [] });
 
-    // derived: dropdown data
-    const generateDropdownData = () => {
+    // Memoized dropdown data - only recalculate when events change
+    const dropdownData = useMemo(() => {
         const cities = [...new Set(events.map((e) => e.city))].sort();
         const countries = [...new Set(events.map((e) => e.country))].sort();
         const eventTypes = ['Fan Project', 'Listening Party', 'Livestream'];
-        const dates = ['Today', 'This Week', 'This Month', 'Next Month', '2024', '2025', 'Custom Range'];
-        const prices = ['Free', '$0-25', '$26-50', '$51-100', '$101-200', '$201+', 'VIP Only'];
+        const dates = ['Today', 'This Week', 'This Month', 'Next Month'];
+        const prices = ['Free', '$0-25', '$26-50'];
         const other = ['Active', 'Pending', 'Cancelled', 'Postponed', 'Expired'];
         return { city: cities, country: countries, event: eventTypes, date: dates, price: prices, other };
+    }, [events]);
+
+    // Memoized date calculations - calculate once per render
+    const dateHelpers = useMemo(() => {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
+        // Calculate week boundaries
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay());
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+        // Calculate next month
+        const nextMonth = new Date(now);
+        nextMonth.setMonth(now.getMonth() + 1);
+
+        // Today string for comparison
+        const todayString = now.toDateString();
+
+        return {
+            now,
+            currentYear,
+            startOfWeek,
+            endOfWeek,
+            nextMonth,
+            todayString
+        };
+    }, []);
+
+    // Create filter checker functions - avoid recreating in every filter iteration
+    const createDateChecker = (dateFilter, helpers) => {
+        const { now, currentYear, startOfWeek, endOfWeek, nextMonth, todayString } = helpers;
+
+        switch (dateFilter) {
+            case 'Today':
+                return (eventDate) => eventDate.toDateString() === todayString;
+            case 'This Week':
+                return (eventDate) => eventDate >= startOfWeek && eventDate <= endOfWeek;
+            case 'This Month':
+                return (eventDate) => eventDate.getMonth() === now.getMonth() && eventDate.getFullYear() === currentYear;
+            case 'Next Month':
+                return (eventDate) => eventDate.getMonth() === nextMonth.getMonth() && eventDate.getFullYear() === nextMonth.getFullYear();
+            default:
+                return () => false;
+        }
     };
-    const dropdownData = generateDropdownData();
 
-    // FIXED: filtering logic that maintains selection order
-    const getFilteredEvents = () => {
+    const createPriceChecker = (range) => {
+        switch (range) {
+            case 'Free':
+                return (price, originalPrice) => price === 0 || originalPrice === "FREE";
+            case '$0-25':
+                return (price) => price >= 0 && price <= 25;
+            case '$26-50':
+                return (price) => price >= 26 && price <= 50;
+            default:
+                return () => false;
+        }
+    };
+
+    // Optimized filtering logic with early returns and memoization
+    const filteredEvents = useMemo(() => {
+        // If no filters are applied, return all events
+        const hasFilters = Object.values(filters).some(arr => arr.length > 0);
+        if (!hasFilters) return events;
+
+        // Pre-calculate filter sets for O(1) lookups
+        const countrySet = new Set(filters.country);
+        const eventTypeSet = new Set(filters.event);
+        const otherSet = new Set(filters.other.map(item => item.toLowerCase()));
+
+        // Pre-calculate date and price checkers
+        const dateCheckers = filters.date.map(dateFilter => createDateChecker(dateFilter, dateHelpers));
+        const priceCheckers = filters.price.map(createPriceChecker);
+
         const baseFilteredEvents = events.filter((event) => {
-            if (filters.country.length > 0 && !filters.country.includes(event.country)) return false;
-            if (filters.event.length > 0 && !filters.event.includes(event.eventType)) return false;
+            // Country filter - O(1) lookup
+            if (countrySet.size > 0 && !countrySet.has(event.country)) return false;
 
-            if (filters.date.length > 0) {
+            // Event type filter - O(1) lookup
+            if (eventTypeSet.size > 0 && !eventTypeSet.has(event.eventType)) return false;
+
+            // Date filter - only parse date if needed
+            if (dateCheckers.length > 0) {
                 const eventDate = new Date(event.date);
-                const now = new Date();
-                const currentYear = now.getFullYear();
-
-                const matchesDate = filters.date.some((dateFilter) => {
-                    switch (dateFilter) {
-                        case 'Today':
-                            return eventDate.toDateString() === now.toDateString();
-                        case 'This Week':
-                            const startOfWeek = new Date(now); startOfWeek.setDate(now.getDate() - now.getDay());
-                            const endOfWeek = new Date(startOfWeek); endOfWeek.setDate(startOfWeek.getDate() + 6);
-                            return eventDate >= startOfWeek && eventDate <= endOfWeek;
-                        case 'This Month':
-                            return eventDate.getMonth() === now.getMonth() && eventDate.getFullYear() === currentYear;
-                        case 'Next Month':
-                            const nextMonth = new Date(now); nextMonth.setMonth(now.getMonth() + 1);
-                            return eventDate.getMonth() === nextMonth.getMonth() && eventDate.getFullYear() === nextMonth.getFullYear();
-                        case '2024':
-                            return eventDate.getFullYear() === 2024;
-                        case '2025':
-                            return eventDate.getFullYear() === 2025;
-                        default:
-                            return false;
-                    }
-                });
+                const matchesDate = dateCheckers.some(checker => checker(eventDate));
                 if (!matchesDate) return false;
             }
 
-            if (filters.price.length > 0) {
+            // Price filter - only parse price if needed
+            if (priceCheckers.length > 0) {
                 const price = event.price === "FREE" ? 0 : Number(event.price);
-                const matchesPrice = filters.price.some((range) => {
-                    switch (range) {
-                        case 'Free': return price === 0 || event.price === "FREE";
-                        case '$0-25': return price >= 0 && price <= 25;
-                        case '$26-50': return price >= 26 && price <= 50;
-                        case '$51-100': return price >= 51 && price <= 100;
-                        case '$101-200': return price >= 101 && price <= 200;
-                        case '$201+': return price > 200;
-                        case 'VIP Only': return event.name.toLowerCase().includes('vip');
-                        default: return false;
-                    }
-                });
+                const matchesPrice = priceCheckers.some(checker => checker(price, event.price));
                 if (!matchesPrice) return false;
             }
 
-            if (filters.other.length > 0) {
-                const statusFilters = ['active', 'pending', 'cancelled', 'postponed', 'expired'];
-                const selectedStatuses = filters.other.filter((item) => statusFilters.includes(item));
-                if (selectedStatuses.length > 0) {
-                    const eventStatus = event.status.charAt(0).toUpperCase() + event.status.slice(1).toLowerCase();
-                    if (!selectedStatuses.includes(eventStatus)) return false;
-                }
+            // Status filter - O(1) lookup
+            if (otherSet.size > 0) {
+                const eventStatus = event.status.toLowerCase();
+                if (!otherSet.has(eventStatus)) return false;
             }
 
             return true;
         });
 
+        // City ordering optimization - only if city filters exist
         if (filters.city.length === 0) return baseFilteredEvents;
 
+        // Use Map for O(1) city event grouping
+        const eventsByCity = new Map();
+        baseFilteredEvents.forEach(event => {
+            if (!eventsByCity.has(event.city)) {
+                eventsByCity.set(event.city, []);
+            }
+            eventsByCity.get(event.city).push(event);
+        });
+
+        // Build ordered result
         const orderedEvents = [];
         filters.city.forEach(selectedCity => {
-            const cityEvents = baseFilteredEvents.filter(event => event.city === selectedCity);
-            orderedEvents.push(...cityEvents);
+            const cityEvents = eventsByCity.get(selectedCity);
+            if (cityEvents) {
+                orderedEvents.push(...cityEvents);
+            }
         });
 
         return orderedEvents;
-    };
+    }, [events, filters, dateHelpers]);
 
-    const filteredEvents = getFilteredEvents();
+    // Memoized active filter tags to avoid recalculating on every render
+    const activeFilterTags = useMemo(() => {
+        return Object.entries(filters)
+            .filter(([_, arr]) => arr.length > 0)
+            .flatMap(([key, arr]) => arr.map((value) => ({ key, value })));
+    }, [filters]);
+
+    const hasActiveFilters = activeFilterTags.length > 0;
 
     const renderDropdown = (name, label, extraClass = '') => {
         const isOpen = openDropdown === name;
@@ -205,17 +265,15 @@ const Section2 = () => {
 
             <div className="section2-content">
                 {/* filter chips */}
-                {Object.values(filters).some((arr) => arr.length > 0) && (
+                {hasActiveFilters && (
                     <div className="filter-tags">
-                        {Object.entries(filters)
-                            .filter(([_, arr]) => arr.length > 0)
-                            .flatMap(([key, arr]) => arr.map((value) => ({ key, value })))
-                            .map(({ key, value }, i) => (
-                                <div key={`${key}-${value}-${i}`} className="filter-tag">
-                                    <span className="filter-tag-text">{value}</span>
-                                    <span className="filter-tag-close" onClick={() => handleFilterRemove(key, value)}>×</span>
-                                </div>
-                            ))}
+                        {activeFilterTags.map(({key, value}, i) => (
+                            <div key={`${key}-${value}-${i}`} className="filter-tag">
+                                <span className="filter-tag-text">{value}</span>
+                                <span className="filter-tag-close"
+                                      onClick={() => handleFilterRemove(key, value)}>×</span>
+                            </div>
+                        ))}
                         <button className="clear-all-btn" onClick={handleClearAll}>clear all</button>
                     </div>
                 )}
@@ -225,11 +283,14 @@ const Section2 = () => {
                     <p>"{filteredEvents.length}" event{filteredEvents.length !== 1 ? 's' : ''} found</p>
                 </div>
 
-                <EventCarousel events={filteredEvents} />
-
+                <EventCarousel events={filteredEvents}/>
+                <div className="button-controller">
+                <button className="event-creation-form">SUBMIT UR EVENT</button>
+                </div>
                 <div className="event-disclaimer">
                     <p>p.s. the events listed are fan related events!!!</p>
                 </div>
+                <img src={star2} alt="star" className="ending-star"/>
             </div>
 
             {/* mobile side panel */}
@@ -246,17 +307,14 @@ const Section2 = () => {
                     {renderDropdown('price', 'price', 'mobile')}
                     {renderDropdown('other', 'other', 'mobile')}
                 </div>
-                {Object.values(filters).some((arr) => arr.length > 0) && (
+                {hasActiveFilters && (
                     <div className="filter-tags mobile">
-                        {Object.entries(filters)
-                            .filter(([_, arr]) => arr.length > 0)
-                            .flatMap(([key, arr]) => arr.map((value) => ({ key, value })))
-                            .map(({ key, value }, i) => (
-                                <div key={`${key}-${value}-${i}`} className="filter-tag">
-                                    <span className="filter-tag-text">{value}</span>
-                                    <span className="filter-tag-close" onClick={() => handleFilterRemove(key, value)}>×</span>
-                                </div>
-                            ))}
+                        {activeFilterTags.map(({ key, value }, i) => (
+                            <div key={`${key}-${value}-${i}`} className="filter-tag">
+                                <span className="filter-tag-text">{value}</span>
+                                <span className="filter-tag-close" onClick={() => handleFilterRemove(key, value)}>×</span>
+                            </div>
+                        ))}
                         <button className="clear-all-btn" onClick={handleClearAll}>clear all</button>
                     </div>
                 )}

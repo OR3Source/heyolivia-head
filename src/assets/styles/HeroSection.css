@@ -1,36 +1,10 @@
-.video-svg-container {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    -webkit-mask-image: url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Desk.svg');
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: cover;
-    mask-image: url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Desk.svg');
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: cover;
-}
+/* ========================= VIDEO SVG CONTAINER ========================= */
+.video-svg-container { width:100%; position:relative; display:flex; justify-content:center; align-items:center; overflow:hidden; -webkit-mask-image:url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Desk.svg'); -webkit-mask-repeat:no-repeat; -webkit-mask-position:center; -webkit-mask-size:cover; mask-image:url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Desk.svg'); mask-repeat:no-repeat; mask-position:center; mask-size:cover; }
+.video-svg-container video { width:100%; height:auto; min-height:100%; min-width:100%; object-fit:cover; display:block; }
+.video-svg-container .tablet-video { display:none; }
 
-.video-svg-container video {
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-    min-width: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.video-svg-container .tablet-video { display: none; }
-
-@media (max-width: 1024px) {
-    .video-svg-container .desktop-video { display: none; }
-    .video-svg-container .tablet-video { display: block; }
-    .video-svg-container {
-        -webkit-mask-image: url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Mobile.svg');
-        mask-image: url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Mobile.svg');
-    }
+@media (max-width:768px) {
+    .video-svg-container .desktop-video { display:none; }
+    .video-svg-container .tablet-video { display:block; }
+    .video-svg-container { -webkit-mask-image:url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Mobile.svg'); mask-image:url('/src/assets/images/hero-section/OLIVIA-00014_E_HeroVideoFrame_Mobile.svg'); }
 }
