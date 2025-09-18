@@ -60,10 +60,12 @@
 .event-disclaimer { font-family:Typeka,sans-serif; color:#3d2b45; font-size:20px; text-align:center; display:block; margin:10px 5px 5px 5px; background-image:url("/src/assets/images/section2-images/OLIVIA-00014_E_FooterTopEdge.png"); background-size:cover; }
 
 /* ========================= RESPONSIVE STARS & DISCLAIMER ========================= */
-@media (min-width:768px) and (max-width:1024px) { .ending-star { display:none; } }
-@media (max-width:376px) { .ending-star { display:none; } }
-@media (max-width:768px) { .event-disclaimer { font-size:19px; background-size:cover; } .ending-star { display:none; }}
-@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:2px; margin-bottom:2px; } }
+@media (min-width:540px) and (max-width:1024px) { .ending-star { display:none; } }
+@media  (max-width:376px) { .ending-star { display:none; } }
+@media  (width: 414px) { .ending-star { display:none; } }
+@media  (width: 344px) { .ending-star { display: inherit; } }
+@media (max-width:767px) { .event-disclaimer { font-size:19px; background-size:cover; }}
+@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:5px; margin-bottom:5px; } }
 @media (max-width:389px) { .event-disclaimer { font-size:13px; background-image:url("/src/assets/images/svg/OLIVIA-00014_E_HeroBottomEdge.svg"); background-size:cover; } .results-count { margin:15px 5px 5px 5px; } }
 
 /* ========================= EVENT CREATION FORM ========================= */
