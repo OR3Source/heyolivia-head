@@ -6,8 +6,15 @@ import filterImage from '../assets/images/svg/172623a0-6823-4218-934f-a84504fa17
 import bgImgEventHeader from '../assets/images/headers/section-headers-heyolivia.png';
 import star2 from '../assets/stars/star2.png';
 import EventCarousel from './EventCarousel';
-
+import { useNavigate } from 'react-router-dom';
 const Section2 = () => {
+
+    const navigate = useNavigate();
+
+    const handleSubmitClick = () => {
+        navigate('/forms/event-submission');
+    };
+
     // --- dropdown + panel state
     const [openDropdown, setOpenDropdown] = useState(null);
     const filterControlsRef = useRef(null);
@@ -285,7 +292,11 @@ const Section2 = () => {
 
                 <EventCarousel events={filteredEvents}/>
                 <div className="button-controller">
-                <button className="event-creation-form">SUBMIT UR EVENT</button>
+                    <div className="button-controller">
+                        <button className="event-creation-form" onClick={handleSubmitClick}>
+                            SUBMIT UR EVENT
+                        </button>
+                    </div>
                 </div>
                 <div className="event-disclaimer">
                     <p>p.s. the events listed are fan related events!!!</p>

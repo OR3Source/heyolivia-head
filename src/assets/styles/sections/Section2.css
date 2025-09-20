@@ -60,7 +60,7 @@
 /* ========================= RESPONSIVE STARS & DISCLAIMER ========================= */
 @media (min-width:540px) and (max-width:1024px) { #section2.section2 { padding-bottom:30px!important; max-height:1019px!important; } .event-disclaimer { font-size:19px; background-size:cover; } }
 @media (min-width:1025px) and (max-width:1380px) { #section2.section2 { padding-bottom:40px!important; max-height:1029px!important; } .event-disclaimer { font-size:19px; background-size:cover; } }
-@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:5px; margin-bottom:5px; } .ending-star { position:absolute; width:40px; height:40px; } #section2.section2 { padding-bottom:30px!important; max-height:1019px!important; } }
+@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:5px; margin-bottom:5px; } .ending-star { position:absolute; width:40px; height:40px; } #section2.section2 { padding-bottom:20px!important; max-height:1019px!important; } }
 @media (max-width:389px) { .event-disclaimer { font-size:13px; background-image:url("/src/assets/images/svg/OLIVIA-00014_E_HeroBottomEdge.svg"); background-size:cover; } .results-count { margin:15px 5px 5px 5px; } .section2-container { padding-bottom:50px; } }
 
 /* ========================= EVENT CREATION FORM ========================= */

@@ -18,6 +18,7 @@ import FallingStars from './components/FallingStars';
 import './assets/styles/HeroSection.css';
 import './assets/styles/HeroSection.css';
 import Section1 from './components/Section1';
+import EventSubmissionForm from './pages/forms/event-submission-form';
 import {Routes, Route, useLocation} from 'react-router-dom';
 import {useEffect} from 'react';
 
@@ -68,6 +69,7 @@ function App() {
                     }
                 />
                 <Route path="/search" element={<SearchPage/>}/>
+                <Route path="/forms/event-submission" element={<EventSubmissionForm />} />
             </Routes>
             <Footer/>
         </div>
