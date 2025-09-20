@@ -1,5 +1,5 @@
 /* ========================= SECTION 2 BASE ========================= */
-#section2.section2 { background-color:#f0e7f4!important; padding-bottom:5px!important; max-height:949px!important; display:block!important; align-items:unset!important; justify-content:unset!important; border-bottom:none!important; }
+#section2.section2 { background-color:#f0e7f4!important; padding-bottom:2px!important; max-height:989px!important; display:block!important; align-items:unset!important; justify-content:unset!important; border-bottom:none!important; }
 #section2.section2 h2 { display:none; }
 
 /* ========================= SECTION 2 CONTAINER ========================= */
@@ -42,9 +42,7 @@
 .filter-mobile-trigger { display:none; margin:10px 0 6px; }
 .filter-trigger-btn { display:inline-flex; align-items:center; gap:8px; background:transparent; font-weight:400; letter-spacing:0.06em; color:var(--highlight-red); padding:8px 15px; font-family:"Typeka",sans-serif; font-size:18px; border:none; cursor:pointer; }
 .filter-trigger-icon { width:16px; height:16px; display:inline-block; color:var(--highlight-red); }
-
 @media (max-width:1024px) { .filter-mobile-trigger { display:block; } .filter-controls { display:none; } .section2-content .filter-tags { display:none; } }
-
 .filter-mobile-panel { position:fixed; top:0; left:-100%; width:82%; max-width:380px; height:100%; background-color:#ae9fdb; box-shadow:2px 0 8px rgba(0,0,0,0.35); transition:left 0.28s ease; padding:16px 16px 24px; z-index:1000; display:flex; flex-direction:column; overflow-y:auto; }
 .filter-mobile-panel.open { left:0; }
 .filter-panel-header { display:flex; justify-content:flex-end; margin-bottom:10px; }
@@ -60,14 +58,11 @@
 .event-disclaimer { font-family:Typeka,sans-serif; color:#3d2b45; font-size:20px; text-align:center; display:block; margin:10px 5px 5px 5px; background-image:url("/src/assets/images/section2-images/OLIVIA-00014_E_FooterTopEdge.png"); background-size:cover; }
 
 /* ========================= RESPONSIVE STARS & DISCLAIMER ========================= */
-@media (min-width:540px) and (max-width:1024px) { .ending-star { display:none; } }
-@media  (max-width:376px) { .ending-star { display:none; } }
-@media  (width: 414px) { .ending-star { display:none; } }
-@media  (width: 344px) { .ending-star { display: inherit; } }
-@media (max-width:767px) { .event-disclaimer { font-size:19px; background-size:cover; }}
-@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:5px; margin-bottom:5px; } }
-@media (max-width:389px) { .event-disclaimer { font-size:13px; background-image:url("/src/assets/images/svg/OLIVIA-00014_E_HeroBottomEdge.svg"); background-size:cover; } .results-count { margin:15px 5px 5px 5px; } }
+@media (min-width:540px) and (max-width:1024px) { #section2.section2 { padding-bottom:30px!important; max-height:1019px!important; } .event-disclaimer { font-size:19px; background-size:cover; } }
+@media (min-width:1025px) and (max-width:1380px) { #section2.section2 { padding-bottom:40px!important; max-height:1029px!important; } .event-disclaimer { font-size:19px; background-size:cover; } }
+@media (max-width:440px) { .event-disclaimer { font-size:14px; } .button-controller { margin-top:5px; margin-bottom:5px; } .ending-star { position:absolute; width:40px; height:40px; } #section2.section2 { padding-bottom:30px!important; max-height:1019px!important; } }
+@media (max-width:389px) { .event-disclaimer { font-size:13px; background-image:url("/src/assets/images/svg/OLIVIA-00014_E_HeroBottomEdge.svg"); background-size:cover; } .results-count { margin:15px 5px 5px 5px; } .section2-container { padding-bottom:50px; } }
 
 /* ========================= EVENT CREATION FORM ========================= */
 .event-creation-form { display:block; max-width:350px; margin:0 auto; padding:15px; background-color:transparent; background-image:url("/src/assets/images/svg/as.png"); background-size:cover; background-position:center; font-family:Barlow,sans-serif; color:white; font-size:25px; text-align:center; border:none; cursor:pointer; user-select:none; }
-.ending-star { position:absolute; width:40px; height:40px; left:50%; transform:translateX(-50%); margin-top:2px; -webkit-user-drag:none; }
+.ending-star { position:absolute; width:30px; height:30px; left:50%; transform:translateX(-50%); margin-top:2px; -webkit-user-drag:none; }
