@@ -1,5 +1,5 @@
 /* ========================= EVENT SUBMISSION PAGE ========================= */
-.event-submission-page { min-height:100vh; background:var(--light-purpwhite-color); display:flex; align-items:flex-start; justify-content:center; padding-top:7rem; }
+.event-submission-page { min-height:100vh; background:#423348; display:flex; align-items:flex-start; justify-content:center; padding-top:7rem; }
 
 /* ========================= FORM CONTAINER ========================= */
 .es-form-container { background:var(--highlight-red); padding:2rem; max-width:600px; margin:6rem auto 3rem; font-family:Barlow,sans-serif; }
