@@ -55,11 +55,8 @@
     .header-bottom-fixed { top:140px; }
 }
 
-@media (max-width:400px) {
-    .header-bottom-fixed { top:23.5vh; }
+@media (max-width:469px) {
+    .header-bottom-fixed { top:160px; }
 }
 
-@media (max-width:370px) {
-    .header-bottom-fixed { top:100px; }
-}
 
