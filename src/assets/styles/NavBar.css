@@ -58,3 +58,10 @@
 @media (max-width:400px) {
     .header-bottom-fixed { top:23.5vh; }
 }
+
+@media (max-width:400px) {
+    .header-bottom-fixed { top:23.5vh; }
+}
+@media (max-width:300px) {
+    .header-bottom-fixed { display: none; }
+}
