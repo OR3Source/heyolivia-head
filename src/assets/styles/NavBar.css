@@ -56,5 +56,5 @@
 }
 
 @media (max-width:400px) {
-    .header-bottom-fixed { top:23.5vh; }
+    .header-bottom-fixed { top:-140px; }
 }
