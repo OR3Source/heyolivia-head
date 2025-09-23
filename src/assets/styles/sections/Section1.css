@@ -89,7 +89,9 @@
     #section1.section1 { margin-top:-75px!important; }
     .outline-wrapper .corner-eye { position:absolute; bottom:-30px; left:-15px; width:140px; height:65px; z-index:15; -webkit-user-drag:none; pointer-events:none; }
 }
-
+@media (max-width:360px){
+    #section1.section1 { margin-top:-95px!important; }
+}
 /* ========================= UTILITY / FALLBACKS ========================= */
 .side-article>div { min-width:0; }
 .dot:focus { outline:3px solid rgba(40,29,45,0.12); outline-offset:2px; }
