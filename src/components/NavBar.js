@@ -63,6 +63,13 @@ function NavBar() {
         const setHeight = () => {
             const height = header.offsetHeight; // real rendered height
             document.documentElement.style.setProperty('--header-height', `${height}px`);
+
+            // 🔔 Debugging Motorola issue
+            alert(
+                `Viewport: ${window.innerWidth} x ${window.innerHeight}\n` +
+                `Measured header height: ${height}px\n` +
+                `CSS var applied: ${getComputedStyle(document.documentElement).getPropertyValue('--header-height')}`
+            );
         };
 
         setHeight(); // run on mount
