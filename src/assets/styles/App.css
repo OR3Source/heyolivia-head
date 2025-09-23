@@ -4,28 +4,34 @@ html, body, #root, .App { height:100%; margin:0; display:flex; flex-direction:co
 html { background-color:#281d2d; }
 
 /* ========================= VARIABLES ========================= */
-:root { --dark-purple-color:#644c86; --light-green-color:rgb(187,247,208); --light-pink-color:#f0e7f4; --darker-purple-color:#281d2d; --light-purple-color:#c1b2d2; --light-purpwhite-color:#f0e7f4; --medium-purple-color:#ae9fdb; }
+:root { --dark-purple-color:#644c86; --light-green-color:rgb(187,247,208); --light-pink-color:#f0e7f4; --darker-purple-color:#281d2d;
+    --highlight-red: #9b0808; --light-purple-color:#c1b2d2; --light-purpwhite-color:#f0e7f4; --medium-purple-color:#ae9fdb;
+    --accent-purple: #3d2b45;}
+:root {
+    --primary-font: Barlow, "Helvetica Neue", sans-serif; --secondary-font: URANIA, "American Typewriter", sans-serif;
+    --tertiary-font: "American Typewriter", sans-serif;
+}
 
 /* ========================= MAIN APP ========================= */
 .App { flex:1; display:flex; flex-direction:column; background-color:var(--highlight-red); }
 
 /* ========================= MESSAGE CONTAINER ========================= */
-.message-container { position:fixed; top:0; left:0; right:0; background:#9b0808; color:white; z-index:999; text-align:center; height:32px; }
-.message-content { padding:8px 20px; font-family:"Typeka",sans-serif; font-size:14px; font-weight:normal; letter-spacing:0.5px; line-height:1; }
+.message-container { position:fixed; top:0; left:0; right:0; background:var(--highlight-red); color:white; z-index:999; text-align:center; height:32px; }
+.message-content { padding:8px 20px; font-family:var(--secondary-font); font-size:15px; font-weight:bold; letter-spacing:1px; line-height:1; }
 .App .header { top:32px !important; }
 .App .header-bottom-fixed { top:calc(132px) !important; }
 .App .main-content { flex:1; padding-top:calc(190px + 32px) !important; }
 
 /* ========================= FOOTER ========================= */
 .footer { background-color:#281d2d; color:white; text-align:center; padding-bottom:20px; padding-top:140px; overflow:visible; margin-top:auto; position:relative; z-index:1; }
-.footer p { font-family:"American Typewriter",sans-serif; font-size:12px; word-spacing:1px; }
+.footer p { font-family:var(--tertiary-font); font-size:12px; word-spacing:1px; }
 .footer .footer-top-divider { position:absolute; left:0; top:0; width:100%; pointer-events:none; background:transparent !important; z-index:2; }
 .footer .footer-top-divider img { display:block; width:100%; height:auto; position:relative; top:-12vw; background:transparent !important; pointer-events:none; }
 .footer-email { display:flex; align-items:center; justify-content:center; gap:10px; font-size:18px; color:white; margin-bottom:20px; }
 .footer-email .material-symbols-outlined { font-size:24px; color:white; }
-.footer-email a { text-decoration:none; color:white; font-family:"American Typewriter",sans-serif; font-size:18px; letter-spacing:2px; }
+.footer-email a { text-decoration:none; color:white; font-family:var(--tertiary-font); font-size:18px; letter-spacing:2px; }
 .footer-email a:hover { color:white; text-decoration:none; }
-.footer-email a span { color:#a22020; font-size:19px; font-weight:700; }
+.footer-email a span { color: var(--highlight-red); font-size:19px; font-weight:700; }
 .footer-middle { text-align:center; margin:20px 0; }
 .footer-middle .social-media-icons { display:inline-flex; gap:20px; justify-content:center; align-items:center; }
 .footer-middle .social-media-icons .icon { width:24px; height:24px; display:inline-block; }
@@ -34,12 +40,13 @@ html { background-color:#281d2d; }
 @font-face { font-family:'Typeka'; src:url('../fonts/TypekaBoldA Regular.ttf') format('truetype'); font-weight:normal; font-style:normal; }
 @font-face { font-family:'Helvetica Neue'; src:url('../fonts/HelveticaNeue.woff') format('woff'), url('../fonts/HelveticaNeueHeavyCondensed.otf') format('opentype'); font-style:normal; font-display:swap; }
 @font-face { font-family:'Barlow'; src:url('../fonts/BarlowSemiCondensed-Bold.ttf') format('truetype'); font-style:normal; }
+@font-face { font-family:'URANIA'; src:url("../fonts/URANIA CZECH.ttf") format('truetype'); font-style:normal; }
 
 /* ========================= HEADLINE ========================= */
 .headline { background:#efe7f4; padding:40px 0 0 40px; text-align:left; }
 .headline-inner { position:relative; display:inline-block; }
-.headline .eyebrow { position:absolute; left:0; bottom:calc(90%); margin:0; font-family:Typeka,sans-serif; font-weight:400; letter-spacing:.06em; color:#9b0808; font-size:clamp(0.9rem,1.6vw,1.4rem); z-index:2; }
-.headline h1 { margin:0; color:#3d2b45; font-family:"Barlow",sans-serif; font-weight:700; letter-spacing:-1.5px; line-height:1; font-size:clamp(2.6rem,8vw,5.2rem); z-index:1; }
+.headline .eyebrow { position:absolute; left:0; bottom:calc(90%); margin:0; font-family:var(--secondary-font); font-weight:600; letter-spacing:.05em; color:var(--highlight-red); font-size: clamp(0.9rem, 1.6vw, 1.4rem); z-index:2; }
+.headline h1 { margin:0; color:var(--accent-purple); font-family:var(--primary-font);; font-weight:700; letter-spacing:-0.01rem; line-height:1; font-size:clamp(2.6rem,8vw,5.2rem); z-index:1; }
 
 /* ========================= RESPONSIVE TWEAKS ========================= */
 @media (max-width:768px){
@@ -54,6 +61,6 @@ html { background-color:#281d2d; }
 @media (max-width:540px){
     .headline .eyebrow { bottom:calc(90%); }
     .footer .footer-top-divider img { top:-54px; }
-    .headline { padding:25px 0 10px 10px; }
+    .headline { padding:25px 0 10px 5px; }
     .App .main-content { padding-top:calc(242px) !important; }
 }

@@ -28,10 +28,6 @@ function Section1() {
     const minSwipeDistance = 50;
     const maxVerticalDistance = 100;
 
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-        document.documentElement.classList.add('safari');
-    }
-
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 480);
         checkMobile();
@@ -112,7 +108,7 @@ function Section1() {
 
             <div className="headline">
                 <div className="headline-inner">
-                    <p className="eyebrow">REGARDING OR3</p>
+                    <p className="eyebrow">ALL THINGS OLIVIA</p>
                     <h1>THE LATEST</h1>
                 </div>
             </div>

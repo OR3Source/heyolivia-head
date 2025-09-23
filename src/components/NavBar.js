@@ -13,23 +13,20 @@ function NavBar() {
 
     const isOnSearchPage = location.pathname.includes('/search');
 
-    // ----------------------------------------------------
-    // Location observer logic (search always trumps)
-    // ----------------------------------------------------
     React.useEffect(() => {
+        if (showSearchBar) {
+            setActive('search');
+            return;
+        }
+
         if (location.pathname.includes('search')) {
             setActive('search');
-            setShowSearchBar(false);
-        } else if (!showSearchBar && location.pathname === '/') {
-            // scroll/observer handles home/events
-        } else if (!showSearchBar) {
-            setActive('');
+        } else if (location.pathname === '/') {
+        } else {
+            setActive('other');
         }
     }, [location.pathname, showSearchBar]);
 
-    // ----------------------------------------------------
-    // Intersection observer for events/home
-    // ----------------------------------------------------
     React.useEffect(() => {
         if (location.pathname !== '/') return;
 
@@ -40,7 +37,7 @@ function NavBar() {
             (entries) => {
                 const entry = entries[0];
 
-                if (showSearchBar || active === 'search') return;
+                if (showSearchBar || location.pathname.includes('search')) return;
 
                 if (entry.isIntersecting) {
                     setActive('events');
@@ -56,14 +53,14 @@ function NavBar() {
         return () => observer.disconnect();
     }, [location.pathname, showSearchBar, active]);
 
-    // ----------------------------------------------------
-    // Click handlers
-    // ----------------------------------------------------
     const handleHomeClick = () => {
         setActive('home');
         setShowSearchBar(false);
-        if (location.pathname !== '/') navigate('/');
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (location.pathname !== '/') {
+            navigate('/');
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     const handleEventsClick = () => {
@@ -78,7 +75,9 @@ function NavBar() {
 
     const handleSearchClick = () => {
         setActive('search');
-        if (!isOnSearchPage) setShowSearchBar(true);
+        if (!isOnSearchPage) {
+            setShowSearchBar(true);
+        }
     };
 
     const handleOtherClick = () => {

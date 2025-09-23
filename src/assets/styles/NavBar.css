@@ -97,6 +97,7 @@
     width: 100%;
     display: block;
     mix-blend-mode: multiply; /* This will make white areas transparent */
+    -webkit-user-drag: none;
 }
 
 /* Responsive styles */
