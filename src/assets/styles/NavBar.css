@@ -111,3 +111,12 @@
     .livies-caption { font-size: 1rem; max-width: 300px; line-height: 1.4; }
   }
   
+  @media (max-width: 375px) {
+    :root { --header-height: 90px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
+    .nav-links button { font-size: 0.9rem; padding: 0.3rem 0.6rem; }
+    .livies-title { font-size: 1.8rem; padding: 12px 30px; letter-spacing: 1px; }
+    .livies-hero { height: 400px; }
+    .livies-overlay { padding: 20px 15px; }
+    .livies-caption { font-size: 1rem; max-width: 300px; line-height: 1.4; }
+  }
