@@ -9,27 +9,6 @@
     overflow: visible;
   }
   
-  /* header-bottom-divider (inside header itself) */
-  .header .header-bottom-divider {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    pointer-events: none;
-    background: transparent !important;
-    z-index: 999;
-  }
-  
-  .header .header-bottom-divider img {
-    display: block;
-    width: 100%;
-    height: auto;
-    position: relative;
-    bottom: -20px;
-    background: transparent !important;
-    pointer-events: none;
-  }
-  
   /* ========================= NAVIGATION ========================= */
   .nav {
     padding: 1rem 0;
@@ -81,13 +60,13 @@
   
   /* ========================= HEADER BOTTOM FIXED DIVIDER ========================= */
   .header-bottom-fixed {
-    position: absolute;   /* <-- anchor inside header */
-    bottom: -20px;        /* align flush under header */
+    position: fixed;
+    top: var(--header-height, 100px); /* attach directly under header */
     left: 0;
     width: 100%;
+    z-index: 999;
     margin: 0;
     padding: 0;
-    z-index: 999;
   }
   .header-bottom-fixed img {
     width: 100%;
@@ -98,17 +77,19 @@
   
   /* ========================= MAIN CONTENT ========================= */
   .main-content {
-    padding-top: 180px; /* adjusted for header + divider height */
+    padding-top: calc(var(--header-height, 100px) + 90px); /* header + divider */
   }
   
   /* ========================= MEDIA QUERIES ========================= */
   @media (max-width: 912px) {
+    :root { --header-height: 90px; } /* adjust header height */
     .livies-title { font-size: 2.5rem; padding: 18px 50px; }
     .livies-hero { width: 95%; height: 500px; }
     .livies-caption { font-size: 1.2rem; }
   }
   
   @media (max-width: 768px) {
+    :root { --header-height: 110px; }
     .nav-container {
       display: flex;
       flex-direction: column;
@@ -118,13 +99,12 @@
     .logo img { height: 60px; }
     .nav-links { gap: 1rem; }
     .nav-links button { font-size: 1rem; padding: 0.4rem 0.8rem; }
-    .main-content { padding-top: 170px; }
   }
   
   @media (max-width: 480px) {
+    :root { --header-height: 120px; }
     .nav-links { flex-wrap: wrap; justify-content: center; }
     .nav-links button { font-size: 0.9rem; padding: 0.3rem 0.6rem; }
-    .main-content { padding-top: 180px; }
     .livies-title { font-size: 1.8rem; padding: 12px 30px; letter-spacing: 1px; }
     .livies-hero { height: 400px; }
     .livies-overlay { padding: 20px 15px; }
