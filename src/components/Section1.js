@@ -37,17 +37,25 @@ function Section1() {
 
     useEffect(() => {
         const updateHeights = () => {
-            if (window.innerWidth > 900) {
+            // Only apply height locking for proper desktop screens
+            // iPad landscape (1024px) should not be locked
+            if (window.innerWidth > 1200 && window.innerHeight > 600) {
                 const featureHeight = featureRef.current?.offsetHeight || 0;
                 const sideHeight = sideRef.current?.offsetHeight || 0;
                 setLockedHeight(Math.max(featureHeight, sideHeight));
             } else {
-                setLockedHeight(0);
+                setLockedHeight(0); // Remove height lock for tablets and smaller screens
             }
         };
-        updateHeights();
+        
+        // Add a small delay to ensure DOM is ready after rotation
+        const timeoutId = setTimeout(updateHeights, 100);
+        
         window.addEventListener('resize', updateHeights);
-        return () => window.removeEventListener('resize', updateHeights);
+        return () => {
+            window.removeEventListener('resize', updateHeights);
+            clearTimeout(timeoutId);
+        };
     }, [page, paginated]);
 
     const onTouchStart = (e) => {
