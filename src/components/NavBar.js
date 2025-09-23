@@ -80,11 +80,6 @@ function NavBar() {
         }
     };
 
-    const handleOtherClick = () => {
-        setActive('other');
-        setShowSearchBar(false);
-    };
-
     return (
         <>
             <header className="header">
@@ -107,7 +102,7 @@ function NavBar() {
                                 <FaSearch size={24}/>
                             </button>
 
-                            <button className={active === 'other' ? 'active' : ''} onClick={handleOtherClick}>
+                            <button className={active === 'other' ? 'active' : ''} disabled>
                                 <FaEllipsisH size={24}/>
                             </button>
                         </div>
