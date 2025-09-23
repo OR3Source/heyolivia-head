@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logoIcon from '../assets/images/navbar/logo.png';
 import headerPaper from '../assets/images/navbar/header-paper-purple.png';
 import { FaHome, FaCalendarAlt, FaSearch, FaEllipsisH } from 'react-icons/fa';
@@ -13,7 +13,7 @@ function NavBar() {
 
     const isOnSearchPage = location.pathname.includes('/search');
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (showSearchBar) {
             setActive('search');
             return;
@@ -27,7 +27,7 @@ function NavBar() {
         }
     }, [location.pathname, showSearchBar]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (location.pathname !== '/') return;
 
         const section2 = document.getElementById('section2');
@@ -83,36 +83,39 @@ function NavBar() {
     return (
         <>
             <header className="header">
-                <nav className="nav">
+                <nav
+                    className="nav"
+                    onClick={() => alert(`${window.innerWidth} X ${window.innerHeight}`)}
+                >
                     <div className="nav-container">
                         <div className="logo">
-                            <img src={logoIcon} alt="HeyOlivia Logo"/>
+                            <img src={logoIcon} alt="HeyOlivia Logo" />
                         </div>
 
                         <div className="nav-links">
                             <button className={active === 'home' ? 'active' : ''} onClick={handleHomeClick}>
-                                <FaHome size={24}/>
+                                <FaHome size={24} />
                             </button>
 
                             <button className={active === 'events' ? 'active' : ''} onClick={handleEventsClick}>
-                                <FaCalendarAlt size={24}/>
+                                <FaCalendarAlt size={24} />
                             </button>
 
                             <button className={active === 'search' ? 'active' : ''} onClick={handleSearchClick}>
-                                <FaSearch size={24}/>
+                                <FaSearch size={24} />
                             </button>
 
                             <button className={active === 'other' ? 'active' : ''} disabled>
-                                <FaEllipsisH size={24}/>
+                                <FaEllipsisH size={24} />
                             </button>
                         </div>
                     </div>
                 </nav>
-            </header>
 
-            <div className="header-bottom-fixed">
-                <img src={headerPaper} alt="TornPaper"/>
-            </div>
+                <div className="header-bottom-fixed">
+                    <img src={headerPaper} alt="TornPaper" />
+                </div>
+            </header>
 
             {showSearchBar && !isOnSearchPage && (
                 <SearchBar hideSearchBar={() => setShowSearchBar(false)} />
