@@ -1,3 +1,8 @@
+/* ========================= ROOT VARIABLES ========================= */
+:root {
+    --header-height: 100px; /* default, overridden dynamically by JS */
+}
+
 /* ========================= HEADER ========================= */
 .header {
     background-color: var(--darker-purple-color);
@@ -8,7 +13,7 @@
     z-index: 1000;
     overflow: visible;
 }
-  
+
 /* ========================= NAVIGATION ========================= */
 .nav {
     padding: 1rem 0;
@@ -21,7 +26,7 @@
     align-items: center;
     padding: 0 2rem;
 }
-  
+
 /* ========================= LOGO / ICONS ========================= */
 .logo {
     display: flex;
@@ -33,7 +38,7 @@
     -webkit-user-drag: none;
     pointer-events: none;
 }
-  
+
 /* ========================= NAV LINKS ========================= */
 .nav-links {
     display: flex;
@@ -57,11 +62,11 @@
     background-color: var(--highlight-red);
     font-weight: bold;
 }
-  
+
 /* ========================= HEADER BOTTOM FIXED DIVIDER ========================= */
 .header-bottom-fixed {
     position: fixed;
-    top: var(--header-height, 100px); /* set dynamically by JS */
+    top: var(--header-height, 100px); /* dynamically updated by JS */
     left: 0;
     width: 100%;
     z-index: 999;
@@ -69,25 +74,27 @@
     padding: 0;
 }
 .header-bottom-fixed img {
-    width: 100%;
-    max-height: 80px; /* ✅ ensures torn paper never stretches too tall */
     display: block;
+    width: 100%;
+    max-height: 80px;
     mix-blend-mode: multiply;
     -webkit-user-drag: none;
+    margin: 0;
+    padding: 0;
 }
-  
+
 /* ========================= MAIN CONTENT ========================= */
 .main-content {
-    padding-top: calc(var(--header-height, 100px) + 90px); /* header + divider */
+    padding-top: calc(var(--header-height, 100px) + 90px); /* header + torn paper */
 }
-  
+
 /* ========================= MEDIA QUERIES ========================= */
 @media (max-width: 912px) {
     .livies-title { font-size: 2.5rem; padding: 18px 50px; }
     .livies-hero { width: 95%; height: 500px; }
     .livies-caption { font-size: 1.2rem; }
 }
-  
+
 @media (max-width: 768px) {
     .nav-container {
         display: flex;
@@ -99,7 +106,7 @@
     .nav-links { gap: 1rem; }
     .nav-links button { font-size: 1rem; padding: 0.4rem 0.8rem; }
 }
-  
+
 @media (max-width: 480px) {
     .nav-links { flex-wrap: wrap; justify-content: center; }
     .nav-links button { font-size: 0.9rem; padding: 0.3rem 0.6rem; }
@@ -108,3 +115,7 @@
     .livies-overlay { padding: 20px 15px; }
     .livies-caption { font-size: 1rem; max-width: 300px; line-height: 1.4; }
 }
+
+/* ========================= OPTIONAL TOUCHUPS ========================= */
+.nav-links button:focus { outline: none; }
+.logo img, .header-bottom-fixed img { display: block; }

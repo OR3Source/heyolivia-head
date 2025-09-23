@@ -13,40 +13,24 @@ function NavBar() {
 
     const isOnSearchPage = location.pathname.includes('/search');
 
-    // 🔹 Update active state on route/searchBar changes
+    // Update active state
     useEffect(() => {
-        if (showSearchBar) {
-            setActive('search');
-            return;
-        }
-
-        if (location.pathname.includes('search')) {
-            setActive('search');
-        } else if (location.pathname === '/') {
-            setActive('home');
-        } else {
-            setActive('other');
-        }
+        if (showSearchBar) return setActive('search');
+        if (location.pathname.includes('search')) setActive('search');
+        else if (location.pathname === '/') setActive('home');
+        else setActive('other');
     }, [location.pathname, showSearchBar]);
 
-    // 🔹 Observe Section2 visibility on homepage
+    // Observe Section2 visibility
     useEffect(() => {
         if (location.pathname !== '/') return;
-
         const section2 = document.getElementById('section2');
         if (!section2) return;
 
         const observer = new IntersectionObserver(
-            (entries) => {
-                const entry = entries[0];
-
+            ([entry]) => {
                 if (showSearchBar || location.pathname.includes('search')) return;
-
-                if (entry.isIntersecting) {
-                    setActive('events');
-                } else {
-                    setActive('home');
-                }
+                setActive(entry.isIntersecting ? 'events' : 'home');
             },
             { threshold: 0.3 }
         );
@@ -55,54 +39,48 @@ function NavBar() {
         return () => observer.disconnect();
     }, [location.pathname, showSearchBar]);
 
-    // 🔹 Dynamically measure header height & update CSS var
+    // Dynamically measure header height AFTER images/fonts load
     useEffect(() => {
         const header = document.querySelector('.header');
-        if (!header) return;
+        const bottomDiv = document.querySelector('.header-bottom-fixed');
 
-        const setHeight = () => {
-            const height = header.offsetHeight; // real rendered height
+        if (!header || !bottomDiv) return;
+
+        const updateHeaderHeight = () => {
+            const height = header.getBoundingClientRect().height;
             document.documentElement.style.setProperty('--header-height', `${height}px`);
+            bottomDiv.style.top = `${height}px`; // stick torn paper exactly to bottom
 
-            // 🔔 Debugging Motorola issue
-            alert(
-                `Viewport: ${window.innerWidth} x ${window.innerHeight}\n` +
-                `Measured header height: ${height}px\n` +
-                `CSS var applied: ${getComputedStyle(document.documentElement).getPropertyValue('--header-height')}`
-            );
+            // Debugging Motorola 360x511
+            if (window.innerWidth === 360 && window.innerHeight === 511) {
+                console.log(`Motorola 360x511 - header height: ${height}px`);
+            }
         };
 
-        setHeight(); // run on mount
-        window.addEventListener('resize', setHeight); // update on resize
-        return () => window.removeEventListener('resize', setHeight);
+        // Run after images/fonts are loaded
+        window.addEventListener('load', updateHeaderHeight);
+        window.addEventListener('resize', updateHeaderHeight);
+
+        return () => {
+            window.removeEventListener('load', updateHeaderHeight);
+            window.removeEventListener('resize', updateHeaderHeight);
+        };
     }, []);
 
-    // === Handlers ===
+    // Handlers
     const handleHomeClick = () => {
-        setActive('home');
-        setShowSearchBar(false);
-        if (location.pathname !== '/') {
-            navigate('/');
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        setActive('home'); setShowSearchBar(false);
+        if (location.pathname !== '/') navigate('/');
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-
     const handleEventsClick = () => {
-        setActive('events');
-        setShowSearchBar(false);
-        if (location.pathname !== '/') {
-            navigate('/', { state: { scrollToSection2: true } });
-        } else {
-            document.getElementById('section2')?.scrollIntoView({ behavior: 'smooth' });
-        }
+        setActive('events'); setShowSearchBar(false);
+        if (location.pathname !== '/') navigate('/', { state: { scrollToSection2: true } });
+        else document.getElementById('section2')?.scrollIntoView({ behavior: 'smooth' });
     };
-
     const handleSearchClick = () => {
         setActive('search');
-        if (!isOnSearchPage) {
-            setShowSearchBar(true);
-        }
+        if (!isOnSearchPage) setShowSearchBar(true);
     };
 
     return (
@@ -113,29 +91,16 @@ function NavBar() {
                         <div className="logo">
                             <img src={logoIcon} alt="HeyOlivia Logo" />
                         </div>
-
                         <div className="nav-links">
-                            <button className={active === 'home' ? 'active' : ''} onClick={handleHomeClick}>
-                                <FaHome size={24}/>
-                            </button>
-
-                            <button className={active === 'events' ? 'active' : ''} onClick={handleEventsClick}>
-                                <FaCalendarAlt size={24}/>
-                            </button>
-
-                            <button className={active === 'search' ? 'active' : ''} onClick={handleSearchClick}>
-                                <FaSearch size={24}/>
-                            </button>
-
-                            <button className={active === 'other' ? 'active' : ''} disabled>
-                                <FaEllipsisH size={24}/>
-                            </button>
+                            <button className={active==='home'?'active':''} onClick={handleHomeClick}><FaHome size={24}/></button>
+                            <button className={active==='events'?'active':''} onClick={handleEventsClick}><FaCalendarAlt size={24}/></button>
+                            <button className={active==='search'?'active':''} onClick={handleSearchClick}><FaSearch size={24}/></button>
+                            <button className={active==='other'?'active':''} disabled><FaEllipsisH size={24}/></button>
                         </div>
                     </div>
                 </nav>
-
                 <div className="header-bottom-fixed">
-                    <img src={headerPaper} alt="TornPaper" />
+                    <img src={headerPaper} alt="TornPaper"/>
                 </div>
             </header>
 
