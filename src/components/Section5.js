@@ -4,34 +4,29 @@ import '../assets/styles/sections/Section5.css';
 import bgImgEventHeader from "../assets/images/headers/section-headers-heyolivia.png";
 import plusIcon from "../assets/images/section5-images/NavPlus.png";
 import minusIcon from "../assets/images/section5-images/NavMinus.png";
+
 const prepItems = [
-    { number: "01.", text: "WHAT TO WEAR?", font: "American Typewriter" },
-    { number: "02.", text: "WHAT TO BRING?", font: "Typeka" },
-    { number: "03.", text: "FINAL REMINDERS", font: "Barlow" }
+    { number: "01.", text: "WHAT TO WEAR?", font: "var(--tertiary-font)" },
+    { number: "02.", text: "WHAT TO BRING?", font: "var(--secondary-font)" },
+    { number: "03.", text: "FINAL REMINDERS", font: "var(--primary-font)" }
 ];
 
 const Section5 = () => {
     const [expandedItem, setExpandedItem] = useState(null);
-
-    // Create refs for each CSSTransition to fix React 18 findDOMNode error
     const nodeRefs = prepItems.map(() => createRef());
+    const prepListRef = useRef(null);
 
     const handleItemClick = (index) => {
         setExpandedItem(expandedItem === index ? null : index);
     };
 
     const handleDownload = () => {
-        const link = document.createElement('a');
-        link.href = 'https://i.pinimg.com/736x/ab/e0/ad/abe0add0f873ac62ae7911364d573102.jpg';
-        link.download = 'olivia-rodrigo-lockscreen-wallpaper.jpg';
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open(
+            "https://drive.google.com/drive/folders/1aH2_vscCi5QSGrckKhpj-0xrTg5tAL5K?usp=drive_link",
+            "_blank"
+        );
     };
 
-    // Handle clicks outside of prep-list
-    const prepListRef = useRef(null);
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (prepListRef.current && !prepListRef.current.contains(event.target)) {
@@ -50,7 +45,6 @@ const Section5 = () => {
 
     return (
         <div id="section5" className="section5-container">
-            {/* Header */}
             <div className="events-title-container">
                 <img
                     src={bgImgEventHeader}
@@ -60,7 +54,6 @@ const Section5 = () => {
                 <h1 className="events-title">T-PREP</h1>
             </div>
 
-            {/* Prep List */}
             <div className="prep-list" ref={prepListRef}>
                 {prepItems.map((item, index) => (
                     <div key={index} className="prep-item-wrapper">
@@ -73,8 +66,8 @@ const Section5 = () => {
                                 className="prep-text"
                                 style={{ fontFamily: item.font }}
                             >
-                                {item.text}
-                            </span>
+                {item.text}
+              </span>
                             <img
                                 src={expandedItem === index ? minusIcon : plusIcon}
                                 alt={expandedItem === index ? "Collapse" : "Expand"}
@@ -82,7 +75,6 @@ const Section5 = () => {
                             />
                         </div>
 
-                        {/* CSSTransition wrapper with nodeRef */}
                         <CSSTransition
                             in={expandedItem === index}
                             timeout={300}
@@ -96,6 +88,12 @@ const Section5 = () => {
                                         <>
                                             <div className="content-left">
                                                 <h3 className="content-title">WHAT TO WEAR</h3>
+                                                <div className="tour-prep-sections">
+                                                    <div className="mini-prep-item">
+                                                        <div className="mini-prep-number">CREATED BY:</div>
+                                                        <div className="mini-prep-text">@username via ____</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="content-right">
                                                 <iframe
@@ -114,32 +112,33 @@ const Section5 = () => {
                                                 <div className="tour-prep-sections">
                                                     <div className="mini-prep-item">
                                                         <div className="mini-prep-number">01. VENUE ESSENTIALS</div>
-                                                        <div className="mini-prep-text">Clear bag, lanyard, & ID</div>
+                                                        <div className="mini-prep-text">Clear bag* & ID</div>
                                                     </div>
                                                     <div className="mini-prep-item">
-                                                        <div className="mini-prep-number">02. SURVIVAL KIT</div>
-                                                        <div className="mini-prep-text">Snacks, cash, & medicine</div>
+                                                        <div className="mini-prep-number">02. SURVIVAL NEEDS</div>
+                                                        <div className="mini-prep-text">Snacks, cash, water, & medicine</div>
                                                     </div>
                                                     <div className="mini-prep-item">
                                                         <div className="mini-prep-number">03. COMFORT</div>
                                                         <div className="mini-prep-text">Hat, sunglasses, & portable fan</div>
                                                     </div>
                                                     <div className="mini-prep-item">
-                                                        <div className="mini-prep-number">04. MEMORY</div>
-                                                        <div className="mini-prep-text">Camera, disposable film, & notebook</div>
+                                                        <div className="mini-prep-number">04. SAFE KEEP</div>
+                                                        <div className="mini-prep-text">Camera, markers, pens, & notebook</div>
                                                     </div>
                                                     <div className="mini-prep-item">
                                                         <div className="mini-prep-number">05. SAFETY</div>
-                                                        <div className="mini-prep-text">Buddy plan & emergency whistle</div>
+                                                        <div className="mini-prep-text">portable charger & buddy system</div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="content-right wallpaper-section">
                                                 <div className="wallpaper-image">
+                                                    {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                                                     <img
                                                         src="https://i.pinimg.com/736x/0c/71/48/0c71486941a6d025684913d38960083e.jpg"
-                                                        alt="Olivia Rodrigo Tour Lockscreen Wallpaper"
+                                                        alt="Download Image Icon"
                                                     />
                                                 </div>
                                                 <div className="download-section" onClick={handleDownload}>
@@ -158,7 +157,7 @@ const Section5 = () => {
                                             </div>
                                             <div className="content-right etiquette-section">
                                                 <p>
-                                                    Please remember to have your best concert etiquette. <br/><br/>
+                                                    Please remember to have your best concert etiquette. <br /><br />
                                                     You are representing Olivia and should be on your best behavior.
                                                 </p>
                                             </div>

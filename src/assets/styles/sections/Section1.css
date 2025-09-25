@@ -10,7 +10,7 @@
 .news-header { width:90%; margin:0 auto 2px; display:flex; justify-content:flex-end; padding:10px 0; }
 .calendar-icon { font-size:16px; margin-right:6px; vertical-align:middle; color:var(--highlight-red); }
 .last-updated { font-size:15px; font-weight:900; color:var(--highlight-red); font-family:var(--secondary-font); position:relative; top:5px; }
-@media (max-width:480px){ .last-updated { font-size:11px; } }
+@media (max-width:480px){ .last-updated { font-size:14px; } }
 
 /* ========================= OUTLINE WRAPPER ========================= */
 .outline-wrapper { width:90%; margin:0 auto 40px; border:1px solid var(--darker-purple-color); padding:30px; position:relative; }
