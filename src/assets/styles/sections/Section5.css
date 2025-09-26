@@ -1,7 +1,7 @@
 /* ========================= SECTION 5 CONTAINER ========================= */
 #section5.section5 { background-color: var(--light-pink-color) !important; padding: 0 !important; display: block !important; align-items: unset !important; justify-content: unset !important; border-bottom: none !important; }
 #section5.section5 h2 { display: none; }
-.section5-container { min-height: auto; padding-bottom: 15rem; color: white; background-size: cover; }
+.section5-container { min-height: auto; padding-bottom: 13rem; color: white; background-size: cover; }
 @media (max-width: 912px) { .section5-container { padding-bottom: 7rem; } }
 @media (max-width: 400px) { .section5-container { padding-bottom: 5rem; } }
 
@@ -16,7 +16,6 @@
 .prep-text { flex: 1; text-align: center; font-size: clamp(1.4rem, 2vw, 2rem); font-weight: bold; color: var(--darker-purple-color); text-transform: uppercase; }
 .prep-item-wrapper:nth-child(2) .prep-text { font-size: clamp(1.6rem, 2.4vw, 2.4rem); }
 .prep-icon { width: clamp(20px, 3vw, 30px); height: clamp(20px, 3vw, 30px); transition: transform 0.2s ease; }
-.prep-item.clickable:hover .prep-icon { transform: scale(1.1); }
 
 /* ========================= EXPANDED CONTENT ========================= */
 .expanded-content { width: 100%; background-color: rgba(255, 255, 255, 0.95); border-top: 1px solid rgba(0,0,0,0.1); animation: slideDown 0.3s ease-out; }

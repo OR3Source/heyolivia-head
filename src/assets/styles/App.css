@@ -1,15 +1,18 @@
 /* ========================= RESET ========================= */
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body, #root, .App { height:100%; margin:0; display:flex; flex-direction:column; }
-html { background-color:#281d2d; }
+html { background-color:var(--darker-purple-color); }
 
 /* ========================= VARIABLES ========================= */
 :root { --dark-purple-color:#644c86; --light-green-color:rgb(187,247,208); --light-pink-color:#f0e7f4; --darker-purple-color:#281d2d;
     --highlight-red: #9b0808; --light-purple-color:#c1b2d2; --light-purpwhite-color:#f0e7f4; --medium-purple-color:#ae9fdb;
     --accent-purple: #3d2b45;}
+
+:root { --lighter-line-color:#3d2b45; } /* ========================= VARIABLES REPLACE ========================= */
 :root {
-    --primary-font: Barlow, "Helvetica Neue", sans-serif; --secondary-font: URANIA, "American Typewriter", sans-serif;
-    --tertiary-font: "American Typewriter", sans-serif;
+    --primary-font: Barlow, "Helvetica Neue", sans-serif;
+    --secondary-font: URANIA, "American Typewriter", "Comic Sans MS", sans-serif;
+    --tertiary-font: "American Typewriter", "Comic Sans MS", sans-serif;
 }
 
 /* ========================= MAIN APP ========================= */
@@ -23,19 +26,23 @@ html { background-color:#281d2d; }
 .App .main-content { flex:1; padding-top:calc(190px + 32px) !important; }
 
 /* ========================= FOOTER ========================= */
-.footer { background-color:#281d2d; color:white; text-align:center; padding-bottom:20px; padding-top:140px; overflow:visible; margin-top:auto; position:relative; z-index:1; }
-.footer p { font-family:var(--tertiary-font); font-size:12px; word-spacing:1px; }
+.footer { background-color:#281d2d; color:white; text-align:center; padding-bottom:20px; padding-top:30px; overflow:visible; margin-top:auto; position:relative; z-index:1; }
+.footer p { font-family:var(--secondary-font); font-size:15px; word-spacing:1px; }
 .footer .footer-top-divider { position:absolute; left:0; top:0; width:100%; pointer-events:none; background:transparent !important; z-index:2; }
 .footer .footer-top-divider img { display:block; width:100%; height:auto; position:relative; top:-12vw; background:transparent !important; pointer-events:none; }
 .footer-email { display:flex; align-items:center; justify-content:center; gap:10px; font-size:18px; color:white; margin-bottom:20px; }
 .footer-email .material-symbols-outlined { font-size:24px; color:white; }
-.footer-email a { text-decoration:none; color:white; font-family:var(--tertiary-font); font-size:18px; letter-spacing:2px; }
+.footer-email a { text-decoration:none; color: var(--highlight-red); font-family:var(--primary-font); font-size:22px; letter-spacing:0.15em; }
 .footer-email a:hover { color:white; text-decoration:none; }
-.footer-email a span { color: var(--highlight-red); font-size:19px; font-weight:700; }
+.footer-email a span { color: var(--light-pink-color); font-size:19px; font-weight:700; }
+.copyright {font-size:15px; font-weight:700; }
 .footer-middle { text-align:center; margin:20px 0; }
 .footer-middle .social-media-icons { display:inline-flex; gap:20px; justify-content:center; align-items:center; }
 .footer-middle .social-media-icons .icon { width:24px; height:24px; display:inline-block; }
-
+.footer-top {margin-bottom: 20px; margin-top: 10px;}
+.footer-top h1 { font-family:var(--primary-font); font-size: 60px; margin-bottom: 5px; }
+.footer-top p { font-family:var(--secondary-font); font-size: 18px; margin-bottom: 15px;}
+.footer-top p span { font-family:var(--secondary-font); font-size: 20px; font-weight: bold; color: var(--light-purple-color); }
 /* ========================= TYPOGRAPHY / FONTS ========================= */
 @font-face { font-family:'Typeka'; src:url('../fonts/TypekaBoldA Regular.ttf') format('truetype'); font-weight:normal; font-style:normal; }
 @font-face { font-family:'Helvetica Neue'; src:url('../fonts/HelveticaNeue.woff') format('woff'), url('../fonts/HelveticaNeueHeavyCondensed.otf') format('opentype'); font-style:normal; font-display:swap; }
@@ -52,7 +59,7 @@ html { background-color:#281d2d; }
 @media (max-width:768px){
     .headline .eyebrow { bottom:calc(90%); }
     .headline { padding:40px 0 0 20px; }
-    .footer { padding-top:96px; }
+    .footer { padding-top:36px; }
     .footer .footer-top-divider img { top:-64px; }
     .App .header-bottom-fixed { top:calc(162px) !important; }
     .App .main-content { padding-top:calc(222px) !important; }
@@ -61,6 +68,8 @@ html { background-color:#281d2d; }
 @media (max-width:540px){
     .headline .eyebrow { bottom:calc(90%); }
     .footer .footer-top-divider img { top:-54px; }
+    .footer-top h1 {font-size: 30px;}
+    .footer p { font-size:15px; margin-bottom: 10px; }
     .headline { padding:25px 0 10px 5px; }
     .App .main-content { padding-top:calc(242px) !important; }
 }
