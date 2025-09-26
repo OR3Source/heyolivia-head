@@ -49,4 +49,5 @@ html { background-color:var(--darker-purple-color); }
 /* ========================= RESPONSIVE TWEAKS ========================= */
 @media (max-width:768px) { .headline .eyebrow { bottom:calc(90%); } .headline { padding:40px 0 0 20px; } .footer { padding-top:36px; } .footer .footer-top-divider img { top:-64px; } .App .header-bottom-fixed { top:calc(162px) !important; } .App .main-content { padding-top:calc(222px) !important; } }
 @media (max-width:540px) { .headline .eyebrow { bottom:calc(90%); } .footer .footer-top-divider img { top:-54px; } .footer-top h1 { font-size:30px; } .footer p { font-size:15px; margin-bottom:10px; } .headline { padding:25px 0 10px 5px; } .App .main-content { padding-top:calc(242px) !important; } }
+@media (max-width:440px) { .footer-top h1 { font-size:30px; } .footer p { font-size:13px; margin-bottom:10px; } .footer-top p { font-family:var(--secondary-font); font-size:13px; margin-bottom:15px; } }
 @media (max-width:400px) { .footer-top h1 { font-size:30px; } .footer p { font-size:12px; margin-bottom:10px; } .footer-top p { font-family:var(--secondary-font); font-size:13px; margin-bottom:15px; } }
