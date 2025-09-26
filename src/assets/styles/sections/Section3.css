@@ -68,15 +68,12 @@
     background-image: url("https://pbs.twimg.com/profile_banners/1729970656232591360/1750245741/1500x500");
     background-position: center -15px;
 }
+
 .block-3 {
-    background-image: url("https://pbs.twimg.com/profile_banners/1347286859567648769/1755055401/1500x500");
-    background-position: center -50px;
-}
-.block-4 {
     background-image: url("https://pbs.twimg.com/profile_banners/1663300379751198720/1729205343/1500x500");
     background-position: center -45px;
 }
-.block-5 {
+.block-4 {
     background-image: url("https://pbs.twimg.com/profile_banners/1694683287082475520/1755038949/1500x500");
     background-position: center -68px;
 }

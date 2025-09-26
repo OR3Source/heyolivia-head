@@ -30,7 +30,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <p> © 2025 heyolivia | we're not affiliated with olivia rodrigo </p>
+            <p> © 2025 heylivies | we're not affiliated with olivia rodrigo </p>
         </footer>
     );
 };

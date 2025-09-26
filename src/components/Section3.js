@@ -34,7 +34,7 @@ const Section3 = () => {
 
                 {/* RIGHT */}
                 <div className="section3-right">
-                    {[1, 2, 3, 4,5].map((num) => (
+                    {[1, 2, 3, 4].map((num) => (
                         <div key={num} className={`news-block block-${num}`}>
                         </div>
                     ))}
