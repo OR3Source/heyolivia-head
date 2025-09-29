@@ -14,7 +14,7 @@ const Footer = () => {
                 <p>stay updated with the latest news and updates on <br />olivia <span>+</span> livies!</p>
                 <div className="footer-email">
                     <img src={mailLogo} alt="Mail Icon" className="footer-mail-icon" draggable="false" />
-                    <a href="mailto:heyoliviaofficial@gmail.com" draggable="false">HEYOLIVIAOFFICIAL</a>
+                    <a href="mailto:heyoliviaofficial@gmail.com" draggable="false">HEYLIVIESOFFICIAL</a>
                 </div>
             </div>
 

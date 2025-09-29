@@ -90,7 +90,7 @@
     .outline-wrapper .corner-eye { position:absolute; bottom:-30px; left:-15px; width:140px; height:65px; z-index:15; -webkit-user-drag:none; pointer-events:none; }
 }
 @media (max-width:360px){
-    #section1.section1 { margin-top:-95px!important; }
+    #section1.section1 { margin-top:-85px!important; }
 }
 /* ========================= UTILITY / FALLBACKS ========================= */
 .side-article>div { min-width:0; }

@@ -8,14 +8,15 @@
     background: url('/src/assets/images/search-page/GUTS_DARK_BKG_DESK.png') center/cover no-repeat;
 }
 
-@media (max-width: 1440px) { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg.jpeg'); } }
+@media (max-width: 1440px) { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg.jpeg');} }
 @media (max-width: 1024px) { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg_1.jpeg'); } }
 @media (max-width: 768px)  { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg_2.jpeg'); padding-top: 190px; } }
 @media (max-width: 600px)  { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg_3.jpeg'); } }
 @media (max-width: 480px)  { .main-search { background-image: url('/src/assets/images/search-page/GUTS_DARK_BKG.jpg_4.jpeg'); padding-top: 180px; } }
 
 
-.embedded-search-container { display: flex; justify-content: center; margin-bottom: 1rem; padding: 0 1rem; }
+.embedded-search-container { display: flex; justify-content: center; margin-bottom: 1rem; padding: 0 1rem;}
+@media (min-width: 1440px) { .embedded-search-container {margin-top: 30px;}}
 .embedded-search-wrapper { width: 800px; max-width: 95%; }
 
 .embedded-search-form {
@@ -25,8 +26,8 @@
 }
 
 .embedded-search-input {
-    flex: 1; width: 100%; padding: 4px 8px; font-size: 1rem;
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+    flex: 1; width: 100%; padding: 4px 8px; font-size: 1.25rem;
+    font-family: var(--secondary-font);
     color: rgb(228,215,243); background: transparent; border: none; outline: none;
 }
 .embedded-search-input::placeholder { color: rgb(228,215,243); opacity: 0.7; }
@@ -39,7 +40,7 @@
 
 .search-error {
     margin-top: 5px; font-size: 0.85rem; color: #ef8181;
-    font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+    font-family: var(--secondary-font);
 }
 
 .search-results {
@@ -48,8 +49,8 @@
 }
 
 .results-wrapper h2, .search-results h2 {
-    margin: -2rem 0 3rem; text-align: center; font-size: 1.5rem; font-weight: normal;
-    color: rgb(228,215,243); font-family: 'American Typewriter', 'Courier New', Courier, monospace;
+    margin: -2rem 0 3rem; text-align: center; font-size: 20px; font-weight: normal;
+    color: var(--light-pink-color); font-family:var(--secondary-font);
 }
 
 .result-image {

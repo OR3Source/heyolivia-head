@@ -45,10 +45,10 @@ function SearchBar({ hideSearchBar }) {
                         <InputBase
                             sx={{
                                 flex: 1,
-                                color: 'rgb(172,135,204)',
+                                color: 'var(--light-pink-color);',
                                 padding: '4px 8px',
-                                fontSize: '1rem',
-                                fontFamily: `'American Typewriter', 'Courier New', Courier, monospace`
+                                fontSize: '1.25rem',
+                                fontFamily: `var(--secondary-font);`
                             }}
                             placeholder="Search"
                             value={query}
