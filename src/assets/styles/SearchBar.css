@@ -1,46 +1,8 @@
-/* SearchBar wrapper positioning */
-.search-bar-wrapper {
-    position: fixed;
-    top: 200px; /* clears header + header-bottom-fixed */
-    left: 0;
-    width: 100%;
-    z-index: 1001;
-    background-color: #281d2d;
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-    font-family: Typeka, 'American Typewriter',sans-serif;
-}
+/* ========================= SEARCH BAR ========================= */
+.search-bar-wrapper { position:fixed; top:200px; left:0; width:100%; z-index:1001; background-color:var(--darker-purple-color); padding:30px 0; display:flex; justify-content:center; font-family:var(--secondary-font); }
+.search-bar-embedded { background-color:orange; padding:30px 0; display:flex; justify-content:center; width:100%; }
 
-.search-bar-embedded {
-    background-color: orange;
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-    .search-bar-wrapper {
-        top: 185px; /* header-bottom-fixed at 130px, image ~70px */
-    }
-}
-
-@media (max-width: 768px) {
-    .search-bar-wrapper {
-        top: 190px; /* header-bottom-fixed at 130px, image ~80px */
-    }
-}
-
-@media (max-width: 480px) {
-    .search-bar-wrapper {
-        top: 180px; /* header-bottom-fixed at 140px, image ~80px */
-    }
-}
-
-@media (max-width: 400px) {
-    .search-bar-wrapper {
-        top: 170px;
-    }
-}
+/* ========================= RESPONSIVE ========================= */
+@media (max-width:1024px){ .search-bar-wrapper { top:175px; } }
+@media (max-width:768px){ .search-bar-wrapper { top:195px; } }
+@media (max-width:480px){ .search-bar-wrapper { top:180px; } }
