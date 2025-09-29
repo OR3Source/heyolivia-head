@@ -1,0 +1,84 @@
+[
+  {
+    "frontImage": "https://i.pinimg.com/1200x/e9/ef/fa/e9effa6a2bad41334676356debd91dd7.jpg",
+    "backImage": "https://i.pinimg.com/736x/f1/2c/f5/f12cf581573ed37b34e0d54efa0fbae1.jpg",
+    "url": "src/pages/GuitarPage.js",
+    "title": "Classic Acoustic Guitar",
+    "description": "A beautifully crafted acoustic guitar with rich tones and a smooth finish. Perfect for beginners and seasoned musicians alike.",
+    "tags": ["instrument", "music", "guitar", "acoustic", "strings"]
+  },
+  {
+    "frontImage": "https://example.com/images/microphone-front.jpg",
+    "backImage": "https://example.com/images/microphone-back.jpg",
+    "url": "src/pages/MicrophonePage.js",
+    "title": "Studio Condenser Microphone",
+    "description": "High-fidelity condenser microphone ideal for vocals, podcasts, and studio recordings. Features noise reduction and crisp audio capture.",
+    "tags": ["audio", "microphone", "recording", "studio", "equipment"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter.",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter.",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  }
+,
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter.",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  },
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter.",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  }
+,
+  {
+    "frontImage": "https://i.pinimg.com/736x/f2/72/d4/f272d48e29b2299612a2183f5a2e9deb.jpg",
+    "backImage": "https://i.pinimg.com/736x/f2/e8/d9/f2e8d9a8cab622087e3b02a89f96dac4.jpg",
+    "url": "https://example.com/artists/olivia-rodrigo",
+    "title": "Olivia Rodrigo",
+    "description": "Grammy-winning singer-songwriter.",
+    "tags": ["artist", "pop", "Olivia Rodrigo", "music", "celebrity", "singer", "songwriter"]
+  }
+]

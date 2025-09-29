@@ -37,25 +37,17 @@ function Section1() {
 
     useEffect(() => {
         const updateHeights = () => {
-            // Only apply height locking for proper desktop screens
-            // iPad landscape (1024px) should not be locked
-            if (window.innerWidth > 1200 && window.innerHeight > 600) {
+            if (window.innerWidth > 900) {
                 const featureHeight = featureRef.current?.offsetHeight || 0;
                 const sideHeight = sideRef.current?.offsetHeight || 0;
                 setLockedHeight(Math.max(featureHeight, sideHeight));
             } else {
-                setLockedHeight(0); // Remove height lock for tablets and smaller screens
+                setLockedHeight(0);
             }
         };
-        
-        // Add a small delay to ensure DOM is ready after rotation
-        const timeoutId = setTimeout(updateHeights, 100);
-        
+        updateHeights();
         window.addEventListener('resize', updateHeights);
-        return () => {
-            window.removeEventListener('resize', updateHeights);
-            clearTimeout(timeoutId);
-        };
+        return () => window.removeEventListener('resize', updateHeights);
     }, [page, paginated]);
 
     const onTouchStart = (e) => {
@@ -105,14 +97,18 @@ function Section1() {
 
     return (
         <div className="section1-container">
+            <div className="top-container">
             <div className="video-svg-container">
                 <video className="desktop-video" autoPlay muted loop playsInline>
-                    <source src={desktopVideo} type="video/mp4" />
+                    <source src={desktopVideo} type="video/mp4"/>
                 </video>
                 <video className="tablet-video" autoPlay muted loop playsInline>
-                    <source src={tabletVideo} type="video/mp4" />
+                    <source src={tabletVideo} type="video/mp4"/>
                 </video>
             </div>
+        </div>
+
+            <div className="background-container"></div>
 
             <div className="headline">
                 <div className="headline-inner">
@@ -123,24 +119,24 @@ function Section1() {
 
             <div className="news-header">
                 <span className="last-updated">
-                    <FaRegCalendarAlt className="calendar-icon" />
+                    <FaRegCalendarAlt className="calendar-icon"/>
                     Last Updated {newsData.lastModified} @ {newsData.lastModifiedTime}
                 </span>
             </div>
 
             <div className="outline-wrapper">
-                <img src={star1} alt="star" className="desktop-star star1" />
-                <img src={star3} alt="star" className="desktop-star star3" />
-                <img src={cornerEye} alt="corner eye" className="corner-eye" />
+                <img src={star1} alt="star" className="desktop-star star1"/>
+                <img src={star3} alt="star" className="desktop-star star3"/>
+                <img src={cornerEye} alt="corner eye" className="corner-eye"/>
 
                 <div className="news-grid">
                     <div
                         className="feature-article"
                         ref={featureRef}
-                        style={{ height: lockedHeight ? `${lockedHeight}px` : 'auto' }}
+                        style={{height: lockedHeight ? `${lockedHeight}px` : 'auto'}}
                     >
                         <div className="feature-image-wrapper">
-                            <img src={newsData.featureArticle.img} alt="Feature News" className="feature-image" />
+                            <img src={newsData.featureArticle.img} alt="Feature News" className="feature-image"/>
                         </div>
                         <div className="feature-content">
                             <h2>{newsData.featureArticle.title}</h2>
@@ -154,16 +150,17 @@ function Section1() {
                         onTouchStart={onTouchStart}
                         onTouchMove={onTouchMove}
                         onTouchEnd={onTouchEnd}
-                        style={{ touchAction: 'pan-y' }}
+                        style={{touchAction: 'pan-y'}}
                     >
-                        <div className="side-articles" ref={sideRef} style={{ height: lockedHeight ? `${lockedHeight}px` : 'auto' }}>
+                        <div className="side-articles" ref={sideRef}
+                             style={{height: lockedHeight ? `${lockedHeight}px` : 'auto'}}>
                             {isMobile
                                 ? allArticles.map((article, index) => (
                                     <div
                                         key={index}
                                         className={`side-article ${index === mobileArticleIndex ? 'mobile-visible' : 'mobile-hidden'}`}
                                     >
-                                        <img src={article.img} alt="News" />
+                                        <img src={article.img} alt="News"/>
                                         <div>
                                             <h3>{article.title}</h3>
                                             <p>{article.desc}</p>
@@ -172,7 +169,7 @@ function Section1() {
                                 ))
                                 : paginated.map((article, index) => (
                                     <div className="side-article" key={index}>
-                                        <img src={article.img} alt="News" />
+                                        <img src={article.img} alt="News"/>
                                         <div>
                                             <h3>{article.title}</h3>
                                             <p>{article.desc}</p>
@@ -187,7 +184,8 @@ function Section1() {
                         {!isMobile && allArticles.length > articlesPerPage && (
                             <div className="pagination-dots">
                                 {[...Array(Math.ceil(allArticles.length / articlesPerPage))].map((_, i) => (
-                                    <div key={i} className={`dot ${page === i ? 'active' : ''}`} onClick={() => setPage(i)} />
+                                    <div key={i} className={`dot ${page === i ? 'active' : ''}`}
+                                         onClick={() => setPage(i)}/>
                                 ))}
                             </div>
                         )}
