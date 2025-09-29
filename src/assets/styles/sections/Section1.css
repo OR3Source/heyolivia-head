@@ -1,9 +1,9 @@
 /* ========================= SECTION 1 ========================= */
 #section1.section1 { background-color:var(--light-pink-color)!important; padding:0!important; display:block!important; align-items:unset!important; justify-content:unset!important; border-bottom:none!important; margin-top:-75px!important; }
-.section1-container { padding:85px 5px 5px; color:#efe7f4; }
+.section1-container { padding:85px 0 0 0; color:#efe7f4; }
 @media (max-width:1024px){ .section1-container { padding:35px 5px 5px; } }
-@media (max-width:768px){ #section1.section1 { margin-top:-62px!important; } .section1-container { padding:20px 10px 10px; } }
-@media (max-width:480px){ .section1-container { padding:15px 5px 5px; } }
+@media (max-width:768px){ #section1.section1 { margin-top:-62px!important; } .section1-container { padding:20px 0 0 0; } }
+@media (max-width:480px){ .section1-container { padding:15px 0 0 0; } }
 @media (max-width:420px){ #section1.section1 { margin-top:-70px!important; } }
 
 /* ========================= NEWS HEADER ========================= */
