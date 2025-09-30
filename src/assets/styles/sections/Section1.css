@@ -5,7 +5,7 @@
 @media (max-width:768px){ #section1.section1 { margin-top:-52px!important; } .section1-container { padding:20px 0 10px 0; } }
 @media (max-width:480px){ .section1-container { padding:15px 0 3px 0; } }
 @media (max-width:420px){ #section1.section1 { margin-top:-70px!important;} }
-@media (max-width:420px){ .section1-container { padding-bottom: 3px;} }
+@media (max-width:420px){ .section1-container { padding-top: 20px; padding-bottom: 3px;} }
 /* ========================= NEWS HEADER ========================= */
 .news-header { width:90%; margin:0 auto 2px; display:flex; justify-content:flex-end; padding:10px 0; }
 .calendar-icon { font-size:16px; margin-right:6px; vertical-align:middle; color:var(--highlight-red); }
