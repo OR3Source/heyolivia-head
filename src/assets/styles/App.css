@@ -4,7 +4,12 @@ html, body, #root, .App { height:100%; margin:0; display:flex; flex-direction:co
 html { background-color:var(--darker-purple-color); }
 
 /* ========================= VARIABLES ========================= */
-:root { --accent-purple:#3d2b45; --dark-purple-color:#644c86; --darker-purple-color:#281d2d; --highlight-red:#9b0808; --light-green-color:rgb(187,247,208); --light-pink-color:#f0e7f4; --light-purple-color:#c1b2d2; --light-purpwhite-color:#f0e7f4; --lighter-line-color:#3d2b45; --medium-purple-color:#ae9fdb; --primary-font:Barlow,"Helvetica Neue",sans-serif; --secondary-font:URANIA,"American Typewriter","Comic Sans MS",sans-serif; --tertiary-font:"American Typewriter","Comic Sans MS",sans-serif; }
+:root { --accent-purple:#3d2b45; --dark-purple-color:#644c86; --darker-purple-color:#281d2d; --highlight-red:#9b0808;
+    --light-green-color:rgb(187,247,208); --light-pink-color:#f0e7f4; --light-purple-color:#c1b2d2; --light-purpwhite-color:#f0e7f4;
+    --lighter-line-color:#3d2b45; --medium-purple-color:#ae9fdb;
+    --lighter-purple-color:#ad9ad9;
+
+    --primary-font:Barlow,"Helvetica Neue",sans-serif; --secondary-font:URANIA,"American Typewriter","Comic Sans MS",sans-serif; --tertiary-font:"American Typewriter","Comic Sans MS",sans-serif; }
 
 /* ========================= MAIN APP ========================= */
 .App { flex:1; display:flex; flex-direction:column; background-color:var(--highlight-red); }
