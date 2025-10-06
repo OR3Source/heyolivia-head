@@ -18,7 +18,7 @@ import FallingStars from './components/FallingStars';
 import './assets/styles/HeroSection.css';
 import './assets/styles/HeroSection.css';
 import Section1 from './components/Section1';
-import EventSubmissionForm from './pages/forms/event-submission-form';
+import FormPage from './pages/forms/FormPage';
 import NotFoundPage from './pages/errors/404';
 import {Routes, Route, useLocation} from 'react-router-dom';
 import {useEffect} from 'react';
@@ -41,7 +41,7 @@ function App() {
         <div className="App">
             <div className="message-container">
                 <div className="message-content">
-                   heyolivia is coming soon.
+                   heylivies is coming soon.
                 </div>
             </div>
             <FallingStars enabled={false}/>
@@ -69,8 +69,8 @@ function App() {
                         </main>
                     }
                 />
-                <Route path="/search" element={<SearchPage/>}/>
-                <Route path="/forms/event-submission" element={<EventSubmissionForm />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/forms" element={<FormPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Footer/>
