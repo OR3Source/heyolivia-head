@@ -12,7 +12,7 @@ const Section2 = () => {
     const navigate = useNavigate();
 
     const handleSubmitClick = () => {
-        navigate('/forms/event-submission');
+        navigate('/forms?type=event');
     };
 
     // --- dropdown + panel state
