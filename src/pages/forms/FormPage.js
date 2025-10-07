@@ -49,21 +49,46 @@ const FormPage=()=>{
     
         if (!phase4Checked) return; // make sure checkbox is checked
     
-        const form = document.querySelector('form[name="HL-FORMS"]'); // your static form
-        if (!form) return console.error("Form not found");
-    
-        const data = new FormData(form);
-    
+        // 1. Create a new FormData object
+        const data = new FormData();
+
+        // 2. Add Netlify-required fields
+        // Must match the 'name' attribute of your static form for detection
+        data.append("form-name", "HL-FORMS"); 
+        data.append("bot-field", ""); // Honeypot field
+
+        // 3. Add all your form data from state
+        // Iterate over your formData state and append all key/value pairs
+        Object.keys(formData).forEach(key => {
+            // Skip the file, as it's handled separately as a blob/file
+            if (key !== "file" && formData[key] !== undefined && formData[key] !== null) {
+                data.append(key, formData[key]);
+            }
+        });
+
+        // 4. Add file(s) if present
+        // Netlify recommends appending files as a "multipart/form-data" upload
+        if (files.accepted.length > 0) {
+            // Append each file if multiple are allowed, or just the first one if you only expect one
+            files.accepted.forEach((file, index) => {
+                data.append(`attachment${index}`, file); // Use a unique name for each file
+            });
+        }
+        
+        // 5. Send the request
         fetch("/", {
             method: "POST",
-            body: data
+            body: data,
         })
         .then(() => {
             setProgress(100);
+            alert("Form submitted successfully!");
+            // Optionally redirect or clear form here
             console.log("✅ Form submitted successfully!");
         })
         .catch((err) => {
             console.error("❌ Form submission failed", err);
+            alert("Form submission failed. See console for error.");
         });
     };
     
@@ -188,23 +213,19 @@ const FormPage=()=>{
 
             </div>}
 
-        <form
+            <form
             name="HL-FORMS"      
             method="POST"
             data-netlify="true"
             action="/forms"
+            netlify-honeypot="bot-field"
+            // Add netlify-recaptcha if you want to use the Netlify version
+            // data-netlify-recaptcha="true" 
+            style={{display: 'none'}} // Added for better practice
         >
             <input type="hidden" name="form-name" value="HL-FORMS"/>
             <input type="hidden" name="bot-field"/>
-            <input type="text" name="firstName" defaultValue="FN" value={formData.firstName}/>
-            <input type="text" name="lastName" defaultValue="LN" value={formData.lastName}/>
-            <input type="email" name="email" defaultValue="EMAIL" value={formData.email}/>
-            <input type="text" name="twitter" defaultValue="x/Twitter" value={formData.twitter}/>
-            <input type="text" name="helpTopic" value={formData.helpTopic}/>
-            <input type="text" name="details" value={formData.details}/>
-            <div data-netlify-recaptcha="true"></div>
         </form>
-
 
     </div>;
 };
