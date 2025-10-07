@@ -41,192 +41,32 @@ const FormPage=()=>{
     const validatePhase2=()=>{const e={};if(!formData.helpTopic.trim())e.helpTopic="Select an option";return e;};
     const validatePhase3=()=>{const e={};if(!formData.details.trim())e.details="Please provide details";if(["media","event","bug"].includes(formData.helpTopic)&&!formData.file)e.file="File required for this category";return e;};
 
-    const handlePhase1Done=()=>{const e=validatePhase1();setErrors(e);if(Object.keys(e).length===0){setPhase1Complete(true);setPhase1Locked(true);if(progress<33)setProgress(33);}};
-    const handlePhase2Done=()=>{const e=validatePhase2();setErrors(f=>({...f,...e}));if(phase1Complete&&Object.keys(e).length===0){setPhase2Locked(true);if(progress<66)setProgress(66);}};
-    const handlePhase3Submit=()=>{const e=validatePhase3();setErrors(f=>({...f,...e}));if(Object.keys(e).length===0){setPhase3Locked(true);setPhase3Complete(true);setPhase4Locked(false);if(progress<75)setProgress(75);}};
-    const handlePhase4Submit = (e) => {
-        e.preventDefault(); 
-    
-        if (!phase4Checked) return; 
-    
-        const data = new FormData();
+    const handlePhase1Done=()=>{const e=validatePhase1();setErrors(e);if(!Object.keys(e).length){setPhase1Complete(true);setPhase1Locked(true);if(progress<33)setProgress(33);}};
+    const handlePhase2Done=()=>{const e=validatePhase2();setErrors(f=>({...f,...e}));if(phase1Complete&&!Object.keys(e).length){setPhase2Locked(true);if(progress<66)setProgress(66);}};
+    const handlePhase3Submit=()=>{const e=validatePhase3();setErrors(f=>({...f,...e}));if(!Object.keys(e).length){setPhase3Locked(true);setPhase3Complete(true);setPhase4Locked(false);if(progress<75)setProgress(75);}};
+    const handlePhase4Submit=e=>{e.preventDefault();if(!phase4Checked)return;const data=new FormData();data.append("form-name","HL-FORMS");data.append("bot-field","");Object.keys(formData).forEach(k=>{if(k!=="file"&&formData[k]!=null)data.append(k,formData[k]);});if(files.accepted.length>0)files.accepted.forEach((f,i)=>data.append(`attachment${i}`,f));fetch("/",{method:"POST",body:data}).then(r=>{if(r.ok||r.status===200||r.status===204){setProgress(100);console.log("✅ Form submitted successfully! Redirecting...");window.location.href="/";}else throw new Error(`Netlify submission failed with status: ${r.status}`);}).catch(err=>console.error("❌ Form submission failed",err));};
 
-        // 1. MUST BE FIRST: Form name and honeypot field
-        data.append("form-name", "HL-FORMS"); 
-        data.append("bot-field", ""); 
-
-        // 2. Add all form data from state
-        Object.keys(formData).forEach(key => {
-            if (key !== "file" && formData[key] !== undefined && formData[key] !== null) {
-                data.append(key, formData[key]);
-            }
-        });
-
-        // 3. Add file(s)
-        if (files.accepted.length > 0) {
-            files.accepted.forEach((file, index) => {
-                data.append(`attachment${index}`, file); 
-            });
-        }
-        
-        // 4. Send the request
-        // NOTE: The root path "/" is correct for Netlify AJAX submissions.
-        fetch("/", {
-            method: "POST",
-            body: data,
-        })
-        .then(response => {
-            if (response.status === 200 || response.status === 204 || response.ok) {
-                setProgress(100);
-                console.log("✅ Form submitted successfully! Redirecting...");
-            
-            } else {
-                throw new Error(`Netlify submission failed with status: ${response.status}`);
-            }
-        })
-        .catch((err) => {
-            console.error("❌ Form submission failed", err);
-        });
-    };
-    
     return <div className="event-submission-page"><Helmet><title>heylivies | form submission</title></Helmet>
-        <div className="top-form"><h1>HL FORM SUBMISSION</h1><p className="subtitle">"I feel your compliments like
-            bullets on skin." - Lacy</p>
-            <div className="progress-wrapper">
-                <div className="progress-text"><span>Form Completion:</span><span
-                    className="progress-percentage">{progress}%</span></div>
-                <div className="progress-bar-bg">
-                    <div className="progress-bar-fill" style={{width: `${progress}%`}}></div>
-                </div>
-            </div>
-        </div>
+        <div className="top-form"><h1>HL FORM SUBMISSION</h1><p className="subtitle">"I feel your compliments like bullets on skin." - Lacy</p><div className="progress-wrapper"><div className="progress-text"><span>Form Completion:</span><span className="progress-percentage">{progress}%</span></div><div className="progress-bar-bg"><div className="progress-bar-fill" style={{width:`${progress}%`}}></div></div></div></div>
 
-        <div className={`user-info-section ${phase1Locked ? "locked collapsed" : ""}`}><h2
-            className="section-heading">PHASE 1: USER INFO</h2>
-            <div className="bookmark-icon"></div>
-            {!phase1Locked && <>
-                <div className="identity-choice"><label className="radio-label"><input type="radio"
-                                                                                       name="identityMethod"
-                                                                                       value="twitter"
-                                                                                       checked={identityMethod === "twitter"}
-                                                                                       onChange={e => setIdentityMethod(e.target.value)}/><span>X / Twitter Username</span></label><label
-                    className="radio-label"><input type="radio" name="identityMethod" value="name"
-                                                   checked={identityMethod === "name"}
-                                                   onChange={e => setIdentityMethod(e.target.value)}/><span>First & Last Name</span></label>
-                </div>
-                {identityMethod === "twitter" ? <div className="form-fields">
-                    <div className="field-group username-field"><label htmlFor="twitter">X / Twitter Username</label>
-                        <div className="username-input-wrapper"><span className="at-symbol">@</span><input type="text"
-                                                                                                           id="twitter"
-                                                                                                           name="twitter"
-                                                                                                           placeholder="Username"
-                                                                                                           value={formData.twitter}
-                                                                                                           onChange={handleInputChange}
-                                                                                                           className={errors.twitter ? "error" : ""}/>
-                        </div>
-                        {errors.twitter && <span className="error-msg">{errors.twitter}</span>}</div>
-                </div> : <div className="form-fields">
-                    <div className="name-row">
-                        <div className="field-group"><label htmlFor="firstName">First Name</label><input type="text"
-                                                                                                         id="firstName"
-                                                                                                         name="firstName"
-                                                                                                         value={formData.firstName}
-                                                                                                         onChange={handleInputChange}
-                                                                                                         className={errors.firstName ? "error" : ""}/>{errors.firstName &&
-                            <span className="error-msg">{errors.firstName}</span>}</div>
-                        <div className="field-group"><label htmlFor="lastName">Last Name</label><input type="text"
-                                                                                                       id="lastName"
-                                                                                                       name="lastName"
-                                                                                                       value={formData.lastName}
-                                                                                                       onChange={handleInputChange}
-                                                                                                       className={errors.lastName ? "error" : ""}/>{errors.lastName &&
-                            <span className="error-msg">{errors.lastName}</span>}</div>
-                    </div>
-                    <div className="field-group"><label htmlFor="email">Email</label><input type="email" id="email"
-                                                                                            name="email"
-                                                                                            value={formData.email}
-                                                                                            onChange={handleInputChange}
-                                                                                            className={errors.email ? "error" : ""}/>{errors.email &&
-                        <span className="error-msg">{errors.email}</span>}</div>
-                </div>}
-                <button className="done-btn" onClick={handlePhase1Done}>NEXT</button>
-            </>}{phase1Locked && <div
-                className="collapsed-summary">{identityMethod === "twitter" ? `@${formData.twitter}` : `${formData.firstName} ${formData.lastName}`}
-                <button className="edit-btn" onClick={() => setPhase1Locked(false)}><img src={editImage} alt="edit"/>
-                </button>
-            </div>}</div>
+        <div className={`user-info-section ${phase1Locked?"locked collapsed":""}`}><h2 className="section-heading">PHASE 1: USER INFO</h2><div className="bookmark-icon"></div>{!phase1Locked&&<><div className="identity-choice"><label className="radio-label"><input type="radio" name="identityMethod" value="twitter" checked={identityMethod==="twitter"} onChange={e=>setIdentityMethod(e.target.value)}/><span>X / Twitter Username</span></label><label className="radio-label"><input type="radio" name="identityMethod" value="name" checked={identityMethod==="name"} onChange={e=>setIdentityMethod(e.target.value)}/><span>First & Last Name</span></label></div>{identityMethod==="twitter"?<div className="form-fields"><div className="field-group username-field"><label htmlFor="twitter">X / Twitter Username</label><div className="username-input-wrapper"><span className="at-symbol">@</span><input type="text" id="twitter" name="twitter" placeholder="Username" value={formData.twitter} onChange={handleInputChange} className={errors.twitter?"error":""}/>{errors.twitter&&<span className="error-msg">{errors.twitter}</span>}</div></div></div>:<div className="form-fields"><div className="name-row"><div className="field-group"><label htmlFor="firstName">First Name</label><input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} className={errors.firstName?"error":""}/>{errors.firstName&&<span className="error-msg">{errors.firstName}</span>}</div><div className="field-group"><label htmlFor="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} className={errors.lastName?"error":""}/>{errors.lastName&&<span className="error-msg">{errors.lastName}</span>}</div></div><div className="field-group"><label htmlFor="email">Email</label><input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className={errors.email?"error":""}/>{errors.email&&<span className="error-msg">{errors.email}</span>}</div></div>}<button className="done-btn" onClick={handlePhase1Done}>NEXT</button></>}{phase1Locked&&<div className="collapsed-summary">{identityMethod==="twitter"?`@${formData.twitter}`:`${formData.firstName} ${formData.lastName}`}<button className="edit-btn" onClick={()=>setPhase1Locked(false)}><img src={editImage} alt="edit"/></button></div>}</div>
 
-        {phase1Complete &&
-            <div ref={phase2Ref} className={`user-info-section ${phase2Locked ? "locked collapsed" : ""}`}><h2
-                className="section-heading">PHASE 2: HELP REQUEST</h2>
-                <div className="bookmark-icon"></div>
-                {!phase2Locked && <div className="form-fields">
-                    <div className="field-group"><label htmlFor="helpTopic">What can I help you with?</label><select
-                        id="helpTopic" name="helpTopic" value={formData.helpTopic} onChange={handleInputChange}
-                        className={errors.helpTopic ? "error" : ""}>
-                        <option value="">-- Select an option --</option>
-                        <option value="feature">Make a feature suggestion</option>
-                        <option value="collaborate">Collaborate</option>
-                        <option value="media">Media removal / copyright</option>
-                        <option value="event">Event submission</option>
-                        <option value="bug">Report a bug</option>
-                        <option value="other">Other</option>
-                    </select>{errors.helpTopic && <span className="error-msg">{errors.helpTopic}</span>}</div>
-                    <button className="done-btn" onClick={handlePhase2Done}>NEXT</button>
-                </div>}{phase2Locked && <div className="collapsed-summary">{formData.helpTopic}
-                    <button className="edit-btn" onClick={() => setPhase2Locked(false)}><img src={editImage}
-                                                                                             alt="edit"/></button>
-                </div>}</div>}
+        {phase1Complete&&<div ref={phase2Ref} className={`user-info-section ${phase2Locked?"locked collapsed":""}`}><h2 className="section-heading">PHASE 2: HELP REQUEST</h2><div className="bookmark-icon"></div>{!phase2Locked&&<div className="form-fields"><div className="field-group"><label htmlFor="helpTopic">What can I help you with?</label><select id="helpTopic" name="helpTopic" value={formData.helpTopic} onChange={handleInputChange} className={errors.helpTopic?"error":""}><option value="">-- Select an option --</option><option value="feature">Make a feature suggestion</option><option value="collaborate">Collaborate</option><option value="media">Media removal / copyright</option><option value="event">Event submission</option><option value="bug">Report a bug</option><option value="other">Other</option></select>{errors.helpTopic&&<span className="error-msg">{errors.helpTopic}</span>}</div><button className="done-btn" onClick={handlePhase2Done}>NEXT</button></div>}{phase2Locked&&<div className="collapsed-summary">{formData.helpTopic}<button className="edit-btn" onClick={()=>setPhase2Locked(false)}><img src={editImage} alt="edit"/></button></div>}</div>}
 
-        {phase2Locked &&
-            <div ref={phase3Ref} className={`user-info-section ${phase3Locked ? "locked collapsed" : ""}`}><h2
-                className="section-heading">PHASE 3: DETAILS / FILE UPLOAD</h2>
-                <div className="bookmark-icon"></div>
-                {!phase3Locked && <div className="form-fields"><ReactQuill theme="snow" value={formData.details}
-                                                                           onChange={v => setFormData(f => ({
-                                                                               ...f,
-                                                                               details: v
-                                                                           }))} modules={modules}
-                                                                           className={errors.details ? "error quill-editor" : "quill-editor"}
-                                                                           placeholder="Enter details here..."/>{errors.details &&
-                    <span
-                        className="error-msg2">{errors.details}</span>}{["media", "event", "bug"].includes(formData.helpTopic) &&
-                    <div className="field-group"><label>ATTACH FILE(S):</label><FileUpload files={files}
-                                                                                           setFiles={setFiles}/>{errors.file &&
-                        <span className="error-msg">{errors.file}</span>}</div>}
-                    <button className="done-btn" onClick={handlePhase3Submit}>SUBMIT</button>
-                </div>}{phase3Locked && <div className="collapsed-summary">Details submitted
-                    <button className="edit-btn" onClick={() => setPhase3Locked(false)}><img src={editImage}
-                                                                                             alt="edit"/></button>
-                </div>}</div>}
+        {phase2Locked&&<div ref={phase3Ref} className={`user-info-section ${phase3Locked?"locked collapsed":""}`}><h2 className="section-heading">PHASE 3: DETAILS / FILE UPLOAD</h2><div className="bookmark-icon"></div>{!phase3Locked&&<div className="form-fields"><ReactQuill theme="snow" value={formData.details} onChange={v=>setFormData(f=>({...f,details:v}))} modules={modules} className={errors.details?"error quill-editor":"quill-editor"} placeholder="Enter details here..."/>{errors.details&&<span className="error-msg2">{errors.details}</span>}{["media","event","bug"].includes(formData.helpTopic)&&<div className="field-group"><label>ATTACH FILE(S):</label><FileUpload files={files} setFiles={setFiles}/>{errors.file&&<span className="error-msg">{errors.file}</span>}</div>}<button className="done-btn" onClick={handlePhase3Submit}>SUBMIT</button></div>}{phase3Locked&&<div className="collapsed-summary">Details submitted<button className="edit-btn" onClick={()=>setPhase3Locked(false)}><img src={editImage} alt="edit"/></button></div>}</div>}
 
-        {phase3Complete && !phase4Locked &&
-            <div className="user-info-section"><h2 className="section-heading">PHASE 4: CONFIRMATION</h2>
-                <div className="form-fields"><label className="checkbox-label"><input type="checkbox"
-                                                                                      checked={phase4Checked}
-                                                                                      onChange={e => setPhase4Checked(e.target.checked)}/> I
-                    confirm that all information is entered correctly.</label></div>
-                    <button type="submit" className="done-btn" disabled={!phase4Checked} onClick={handlePhase4Submit}>Submit</button>
+        {phase3Complete&&!phase4Locked&&<div className="user-info-section"><h2 className="section-heading">PHASE 4: CONFIRMATION</h2><div className="form-fields"><label className="checkbox-label"><input type="checkbox" checked={phase4Checked} onChange={e=>setPhase4Checked(e.target.checked)}/> I confirm that all information is entered correctly.</label></div><button type="submit" className="done-btn" disabled={!phase4Checked} onClick={handlePhase4Submit}>Submit</button></div>}
 
-            </div>}
-
-            <form
-    name="HL-FORMS"      
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
-    style={{display: 'none'}} 
->
-    <input type="hidden" name="form-name" value="HL-FORMS"/>
-    <input type="hidden" name="bot-field"/>
-    <input type="text" name="firstName" />
-    <input type="text" name="lastName" />
-    <input type="email" name="email" />
-    <input type="text" name="twitter" />
-    <input type="text" name="helpTopic" />
-    <textarea name="details"></textarea>
-</form>
-
+        <form name="HL-FORMS" method="POST" data-netlify="true" action="/" netlify-honeypot="bot-field" style={{display:'none'}}>
+            <input type="hidden" name="form-name" value="HL-FORMS"/>
+            <input type="hidden" name="bot-field"/>
+            <input type="text" name="firstName" value={formData.firstName||''} readOnly/>
+            <input type="text" name="lastName" value={formData.lastName||''} readOnly/>
+            <input type="email" name="email" value={formData.email||''} readOnly/>
+            <input type="text" name="twitter" value={formData.twitter||''} readOnly/>
+            <input type="text" name="helpTopic" value={formData.helpTopic||''} readOnly/>
+            <input type="text" name="details" value={formData.details||''} readOnly/>
+        </form>
     </div>;
 };
 
