@@ -166,7 +166,7 @@ const FormPage=()=>{
                                                                                       checked={phase4Checked}
                                                                                       onChange={e => setPhase4Checked(e.target.checked)}/> I
                     confirm that all information is entered correctly.</label></div>
-                <button type="button" className="done-btn" disabled={!phase4Checked}
+                <button type="submit" className="done-btn" disabled={!phase4Checked}
                         onClick={handlePhase4Submit}>Submit
                 </button>
             </div>}
@@ -176,6 +176,7 @@ const FormPage=()=>{
             method="POST"
             data-netlify="true"
             style={{display: "none"}} // can keep it hidden
+            action="/forms"
         >
             <input type="hidden" name="form-name" value="HL-FORMS"/>
             <input type="hidden" name="bot-field"/>
@@ -189,26 +190,6 @@ const FormPage=()=>{
             <div data-netlify-recaptcha="true"></div>
         </form>
 
-        <form
-            name="TEST-FORM"
-            method="POST"
-            data-netlify="true"
-            data-netlify-recaptcha="true"
-        >
-            <input type="hidden" name="form-name" value="TEST-FORM"/>
-
-            <label>
-                Name: <input type="text" name="name"/>
-            </label>
-
-            <label>
-                Email: <input type="email" name="email"/>
-            </label>
-
-            <button type="submit">Submit</button>
-
-            <div data-netlify-recaptcha="true"></div>
-        </form>
 
     </div>;
 };
