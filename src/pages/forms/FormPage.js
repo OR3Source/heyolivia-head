@@ -175,7 +175,6 @@ const FormPage=()=>{
             name="HL-FORMS"        // static name
             method="POST"
             data-netlify="true"
-            style={{display: "none"}} // can keep it hidden
             action="/forms"
         >
             <input type="hidden" name="form-name" value="HL-FORMS"/>
