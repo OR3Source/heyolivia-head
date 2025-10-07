@@ -45,8 +45,18 @@ const FormPage=()=>{
     const handlePhase1Done=()=>{const e=validatePhase1();setErrors(e);if(Object.keys(e).length===0){setPhase1Complete(true);setPhase1Locked(true);if(progress<33)setProgress(33);}};
     const handlePhase2Done=()=>{const e=validatePhase2();setErrors(f=>({...f,...e}));if(phase1Complete&&Object.keys(e).length===0){setPhase2Locked(true);if(progress<66)setProgress(66);}};
     const handlePhase3Submit=()=>{const e=validatePhase3();setErrors(f=>({...f,...e}));if(Object.keys(e).length===0){setPhase3Locked(true);setPhase3Complete(true);setPhase4Locked(false);if(progress<75)setProgress(75);}};
-    const handlePhase4Submit=()=>{if(!phase4Checked)return;if(netlifyFormRef.current){const f=netlifyFormRef.current;const d=new FormData(f);fetch("/",{method:"POST",body:d}).then(()=>{setProgress(100);alert("✅ Form submitted successfully!");}).catch(()=>alert("❌ Form submission failed!"));}};
-
+    const handlePhase4Submit = () => {
+        if (!phase4Checked) return;
+      
+        if (netlifyFormRef.current) {
+          const form = netlifyFormRef.current;
+          const data = new FormData(form);
+      
+          fetch("/", { method: "POST", body: data })
+            .then(() => setProgress(100)) // update progress silently
+            .catch(() => console.error("Form submission failed")); // log failure silently
+        }
+      };      
     return<div className="event-submission-page"><Helmet><title>heylivies | form submission</title></Helmet><div className="top-form"><h1>HL FORM SUBMISSION</h1><p className="subtitle">"I feel your compliments like bullets on skin." - Lacy</p><div className="progress-wrapper"><div className="progress-text"><span>Form Completion:</span><span className="progress-percentage">{progress}%</span></div><div className="progress-bar-bg"><div className="progress-bar-fill" style={{width:`${progress}%`}}></div></div></div></div>
 
         <div className={`user-info-section ${phase1Locked?"locked collapsed":""}`}><h2 className="section-heading">PHASE 1: USER INFO</h2><div className="bookmark-icon"></div>{!phase1Locked&&<><div className="identity-choice"><label className="radio-label"><input type="radio" name="identityMethod" value="twitter" checked={identityMethod==="twitter"} onChange={e=>setIdentityMethod(e.target.value)}/><span>X / Twitter Username</span></label><label className="radio-label"><input type="radio" name="identityMethod" value="name" checked={identityMethod==="name"} onChange={e=>setIdentityMethod(e.target.value)}/><span>First & Last Name</span></label></div>{identityMethod==="twitter"?<div className="form-fields"><div className="field-group username-field"><label htmlFor="twitter">X / Twitter Username</label><div className="username-input-wrapper"><span className="at-symbol">@</span><input type="text" id="twitter" name="twitter" placeholder="Username" value={formData.twitter} onChange={handleInputChange} className={errors.twitter?"error":""}/></div>{errors.twitter&&<span className="error-msg">{errors.twitter}</span>}</div></div>:<div className="form-fields"><div className="name-row"><div className="field-group"><label htmlFor="firstName">First Name</label><input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} className={errors.firstName?"error":""}/>{errors.firstName&&<span className="error-msg">{errors.firstName}</span>}</div><div className="field-group"><label htmlFor="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} className={errors.lastName?"error":""}/>{errors.lastName&&<span className="error-msg">{errors.lastName}</span>}</div></div><div className="field-group"><label htmlFor="email">Email</label><input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className={errors.email?"error":""}/>{errors.email&&<span className="error-msg">{errors.email}</span>}</div></div>}<button className="done-btn" onClick={handlePhase1Done}>NEXT</button></>}{phase1Locked&&<div className="collapsed-summary">{identityMethod==="twitter"?`@${formData.twitter}`:`${formData.firstName} ${formData.lastName}`}<button className="edit-btn" onClick={()=>setPhase1Locked(false)}><img src={editImage} alt="edit"/></button></div>}</div>
@@ -58,23 +68,25 @@ const FormPage=()=>{
         {phase3Complete&&!phase4Locked&&<div className="user-info-section"><h2 className="section-heading">PHASE 4: CONFIRMATION</h2><div className="form-fields"><label className="checkbox-label"><input type="checkbox" checked={phase4Checked} onChange={e=>setPhase4Checked(e.target.checked)}/> I confirm that all information is entered correctly.</label></div><button type="button" className="done-btn" disabled={!phase4Checked} onClick={handlePhase4Submit}>Submit</button></div>}
 
         <form
-            name="HL-FORMS"
-            method="POST"
-            data-netlify="true"
-            data-netlify-recaptcha="true"
-            ref={netlifyFormRef}
-            style={{ display: "none" }}
-        >
-            <input type="hidden" name="form-name" value="contact"/>
-            <input type="text" name="firstName" value={formData.firstName}/>
-            <input type="text" name="lastName" value={formData.lastName}/>
-            <input type="email" name="email" value={formData.email}/>
-            <input type="text" name="twitter" value={formData.twitter}/>
-            <input type="text" name="helpTopic" value={formData.helpTopic}/> {/* this tracks the selected helpTopic */}
-            <input type="text" name="details" value={formData.details}/>
-            <input type="file" name="files" ref={hiddenFileInputRef} multiple/>
-            <div data-netlify-recaptcha="true"></div>
-        </form>
+  name="HL-FORMS"        // static name
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field" // optional for spam protection
+  ref={netlifyFormRef}
+  style={{ display: "none" }} // can keep it hidden
+>
+  <input type="hidden" name="form-name" value="HL-FORMS" />
+  <input type="hidden" name="bot-field" />
+  <input type="text" name="firstName" value={formData.firstName} />
+  <input type="text" name="lastName" value={formData.lastName} />
+  <input type="email" name="email" value={formData.email} />
+  <input type="text" name="twitter" value={formData.twitter} />
+  <input type="text" name="helpTopic" value={formData.helpTopic} />
+  <input type="text" name="details" value={formData.details} />
+  <input type="file" name="files" ref={hiddenFileInputRef} multiple />
+  <div data-netlify-recaptcha="true"></div>
+</form>
+
     </div>;
 };
 
