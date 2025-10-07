@@ -67,11 +67,9 @@ const FormPage=()=>{
         });
 
         // 4. Add file(s) if present
-        // Netlify recommends appending files as a "multipart/form-data" upload
         if (files.accepted.length > 0) {
-            // Append each file if multiple are allowed, or just the first one if you only expect one
             files.accepted.forEach((file, index) => {
-                data.append(`attachment${index}`, file); // Use a unique name for each file
+                data.append(`attachment${index}`, file); 
             });
         }
         
@@ -80,15 +78,23 @@ const FormPage=()=>{
             method: "POST",
             body: data,
         })
-        .then(() => {
-            setProgress(100);
-            alert("Form submitted successfully!");
-            // Optionally redirect or clear form here
-            console.log("✅ Form submitted successfully!");
+        .then(response => {
+            // Check if the submission was successful (status 200, 204, etc.)
+            if (response.status === 200 || response.status === 204 || response.ok) {
+                setProgress(100);
+                console.log("✅ Form submitted successfully! Redirecting...");
+                
+                // 🛑 CORRECT REDIRECTION: Manually navigate to the success page
+                // The URL here should match the 'action' attribute of the static form
+                window.location.href = "/forms"; 
+            } else {
+                // If Netlify returns a non-success status, you can handle it here
+                throw new Error(`Netlify submission failed with status: ${response.status}`);
+            }
         })
         .catch((err) => {
             console.error("❌ Form submission failed", err);
-            alert("Form submission failed. See console for error.");
+            // Removed alert
         });
     };
     
@@ -214,18 +220,32 @@ const FormPage=()=>{
             </div>}
 
             <form
-            name="HL-FORMS"      
-            method="POST"
-            data-netlify="true"
-            action="/forms"
-            netlify-honeypot="bot-field"
-            // Add netlify-recaptcha if you want to use the Netlify version
-            // data-netlify-recaptcha="true" 
-            style={{display: 'none'}} // Added for better practice
-        >
-            <input type="hidden" name="form-name" value="HL-FORMS"/>
-            <input type="hidden" name="bot-field"/>
-        </form>
+    name="HL-FORMS"
+    method="POST"
+    data-netlify="true"
+    action="/forms"
+    netlify-honeypot="bot-field"
+    style={{display: 'none'}} 
+>
+    <input type="hidden" name="form-name" value="HL-FORMS"/>
+    <input type="hidden" name="bot-field"/>
+    
+    {/* All required form fields must be present here as hidden inputs */}
+    <input type="text" name="firstName" value={formData.firstName || ''} readOnly />
+    <input type="text" name="lastName" value={formData.lastName || ''} readOnly />
+    <input type="email" name="email" value={formData.email || ''} readOnly />
+    <input type="text" name="twitter" value={formData.twitter || ''} readOnly />
+    <input type="text" name="helpTopic" value={formData.helpTopic || ''} readOnly />
+
+    {/* The 'details' field (Quill content) must also be included */}
+    <input type="text" name="details" value={formData.details || ''} readOnly />
+    
+    {/* The file input is not strictly necessary here since you are submitting 
+        files via the FormData object in the fetch call, but if you want to 
+        be thorough, you can include a placeholder for the file name. 
+        However, the file content is handled in JS. */}
+
+</form>
 
     </div>;
 };
