@@ -323,7 +323,6 @@ const FormPage = () => {
       name="HL-FORMS"
       method="POST"
       data-netlify="true"
-      action="/"
       netlify-honeypot="bot-field"
       style={{ display: 'none' }}
       ref={hiddenFormRef}
