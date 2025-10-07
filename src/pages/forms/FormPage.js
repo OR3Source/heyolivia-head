@@ -179,10 +179,10 @@ const FormPage=()=>{
         >
             <input type="hidden" name="form-name" value="HL-FORMS"/>
             <input type="hidden" name="bot-field"/>
-            <input type="text" name="firstName" value={formData.firstName}/>
-            <input type="text" name="lastName" value={formData.lastName}/>
-            <input type="email" name="email" value={formData.email}/>
-            <input type="text" name="twitter" value={formData.twitter}/>
+            <input type="text" name="firstName" defaultValue="FN" value={formData.firstName}/>
+            <input type="text" name="lastName" defaultValue="LN" value={formData.lastName}/>
+            <input type="email" name="email" defaultValue="EMAIL" value={formData.email}/>
+            <input type="text" name="twitter" defaultValue="x/Twitter" value={formData.twitter}/>
             <input type="text" name="helpTopic" value={formData.helpTopic}/>
             <input type="text" name="details" value={formData.details}/>
             <input type="file" name="files" ref={hiddenFileInputRef} multiple/>
