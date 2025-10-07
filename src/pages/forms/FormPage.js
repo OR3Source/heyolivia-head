@@ -79,9 +79,7 @@ const FormPage=()=>{
             if (response.status === 200 || response.status === 204 || response.ok) {
                 setProgress(100);
                 console.log("✅ Form submitted successfully! Redirecting...");
-                
-                // Manual redirect for AJAX submission (ACTION in hidden form is /forms)
-                window.location.href = "/forms"; 
+            
             } else {
                 throw new Error(`Netlify submission failed with status: ${response.status}`);
             }
@@ -216,7 +214,6 @@ const FormPage=()=>{
     name="HL-FORMS"      
     method="POST"
     data-netlify="true"
-    action="/forms"
     netlify-honeypot="bot-field"
     style={{display: 'none'}} 
 >
