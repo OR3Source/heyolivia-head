@@ -44,11 +44,29 @@ const FormPage=()=>{
     const handlePhase1Done=()=>{const e=validatePhase1();setErrors(e);if(Object.keys(e).length===0){setPhase1Complete(true);setPhase1Locked(true);if(progress<33)setProgress(33);}};
     const handlePhase2Done=()=>{const e=validatePhase2();setErrors(f=>({...f,...e}));if(phase1Complete&&Object.keys(e).length===0){setPhase2Locked(true);if(progress<66)setProgress(66);}};
     const handlePhase3Submit=()=>{const e=validatePhase3();setErrors(f=>({...f,...e}));if(Object.keys(e).length===0){setPhase3Locked(true);setPhase3Complete(true);setPhase4Locked(false);if(progress<75)setProgress(75);}};
-    const handlePhase4Submit = () => {
-        if (!phase4Checked) return;
-        setProgress(100);
+    const handlePhase4Submit = (e) => {
+        e.preventDefault(); // prevent page reload
+    
+        if (!phase4Checked) return; // make sure checkbox is checked
+    
+        const form = document.querySelector('form[name="HL-FORMS"]'); // your static form
+        if (!form) return console.error("Form not found");
+    
+        const data = new FormData(form);
+    
+        fetch("/", {
+            method: "POST",
+            body: data
+        })
+        .then(() => {
+            setProgress(100);
+            console.log("✅ Form submitted successfully!");
+        })
+        .catch((err) => {
+            console.error("❌ Form submission failed", err);
+        });
     };
-
+    
     return <div className="event-submission-page"><Helmet><title>heylivies | form submission</title></Helmet>
         <div className="top-form"><h1>HL FORM SUBMISSION</h1><p className="subtitle">"I feel your compliments like
             bullets on skin." - Lacy</p>
@@ -166,13 +184,12 @@ const FormPage=()=>{
                                                                                       checked={phase4Checked}
                                                                                       onChange={e => setPhase4Checked(e.target.checked)}/> I
                     confirm that all information is entered correctly.</label></div>
-                <button type="submit" className="done-btn" disabled={!phase4Checked}
-                        onClick={handlePhase4Submit}>Submit
-                </button>
+                    <button type="submit" className="done-btn" disabled={!phase4Checked} onClick={handlePhase4Submit}>Submit</button>
+
             </div>}
 
         <form
-            name="HL-FORMS"        // static name
+            name="HL-FORMS"      
             method="POST"
             data-netlify="true"
             action="/forms"
