@@ -45,56 +45,49 @@ const FormPage=()=>{
     const handlePhase2Done=()=>{const e=validatePhase2();setErrors(f=>({...f,...e}));if(phase1Complete&&Object.keys(e).length===0){setPhase2Locked(true);if(progress<66)setProgress(66);}};
     const handlePhase3Submit=()=>{const e=validatePhase3();setErrors(f=>({...f,...e}));if(Object.keys(e).length===0){setPhase3Locked(true);setPhase3Complete(true);setPhase4Locked(false);if(progress<75)setProgress(75);}};
     const handlePhase4Submit = (e) => {
-        e.preventDefault(); // prevent page reload
+        e.preventDefault(); 
     
-        if (!phase4Checked) return; // make sure checkbox is checked
+        if (!phase4Checked) return; 
     
-        // 1. Create a new FormData object
         const data = new FormData();
 
-        // 2. Add Netlify-required fields
-        // Must match the 'name' attribute of your static form for detection
+        // 1. MUST BE FIRST: Form name and honeypot field
         data.append("form-name", "HL-FORMS"); 
-        data.append("bot-field", ""); // Honeypot field
+        data.append("bot-field", ""); 
 
-        // 3. Add all your form data from state
-        // Iterate over your formData state and append all key/value pairs
+        // 2. Add all form data from state
         Object.keys(formData).forEach(key => {
-            // Skip the file, as it's handled separately as a blob/file
             if (key !== "file" && formData[key] !== undefined && formData[key] !== null) {
                 data.append(key, formData[key]);
             }
         });
 
-        // 4. Add file(s) if present
+        // 3. Add file(s)
         if (files.accepted.length > 0) {
             files.accepted.forEach((file, index) => {
                 data.append(`attachment${index}`, file); 
             });
         }
         
-        // 5. Send the request
+        // 4. Send the request
+        // NOTE: The root path "/" is correct for Netlify AJAX submissions.
         fetch("/", {
             method: "POST",
             body: data,
         })
         .then(response => {
-            // Check if the submission was successful (status 200, 204, etc.)
             if (response.status === 200 || response.status === 204 || response.ok) {
                 setProgress(100);
                 console.log("✅ Form submitted successfully! Redirecting...");
                 
-                // 🛑 CORRECT REDIRECTION: Manually navigate to the success page
-                // The URL here should match the 'action' attribute of the static form
+                // Manual redirect for AJAX submission (ACTION in hidden form is /forms)
                 window.location.href = "/forms"; 
             } else {
-                // If Netlify returns a non-success status, you can handle it here
                 throw new Error(`Netlify submission failed with status: ${response.status}`);
             }
         })
         .catch((err) => {
             console.error("❌ Form submission failed", err);
-            // Removed alert
         });
     };
     
@@ -220,7 +213,7 @@ const FormPage=()=>{
             </div>}
 
             <form
-    name="HL-FORMS"
+    name="HL-FORMS"      
     method="POST"
     data-netlify="true"
     action="/forms"
@@ -229,22 +222,12 @@ const FormPage=()=>{
 >
     <input type="hidden" name="form-name" value="HL-FORMS"/>
     <input type="hidden" name="bot-field"/>
-    
-    {/* All required form fields must be present here as hidden inputs */}
-    <input type="text" name="firstName" value={formData.firstName || ''} readOnly />
-    <input type="text" name="lastName" value={formData.lastName || ''} readOnly />
-    <input type="email" name="email" value={formData.email || ''} readOnly />
-    <input type="text" name="twitter" value={formData.twitter || ''} readOnly />
-    <input type="text" name="helpTopic" value={formData.helpTopic || ''} readOnly />
-
-    {/* The 'details' field (Quill content) must also be included */}
-    <input type="text" name="details" value={formData.details || ''} readOnly />
-    
-    {/* The file input is not strictly necessary here since you are submitting 
-        files via the FormData object in the fetch call, but if you want to 
-        be thorough, you can include a placeholder for the file name. 
-        However, the file content is handled in JS. */}
-
+    <input type="text" name="firstName" />
+    <input type="text" name="lastName" />
+    <input type="email" name="email" />
+    <input type="text" name="twitter" />
+    <input type="text" name="helpTopic" />
+    <textarea name="details"></textarea>
 </form>
 
     </div>;
