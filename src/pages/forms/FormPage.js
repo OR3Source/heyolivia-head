@@ -320,22 +320,23 @@ const FormPage = () => {
 
     {/* Hidden Netlify Form */}
     <form
-      name="HL-FORMS"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      style={{ display: 'none' }}
-      ref={hiddenFormRef}
-    >
-      <input type="hidden" name="form-name" value="HL-FORMS" />
-      <input type="hidden" name="bot-field" />
-      <input type="text" name="firstName" value={formData.firstName || ''} readOnly />
-      <input type="text" name="lastName" value={formData.lastName || ''} readOnly />
-      <input type="email" name="email" value={formData.email || ''} readOnly />
-      <input type="text" name="twitter" value={formData.twitter || ''} readOnly />
-      <input type="text" name="helpTopic" value={formData.helpTopic || ''} readOnly />
-      <input type="text" name="details" value={formData.details || ''} readOnly />
-    </form>
+  name="HL-FORMS"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  style={{ display: 'none' }}
+  ref={hiddenFormRef}
+>
+  <input type="hidden" name="form-name" value="HL-FORMS" />
+  <input type="hidden" name="bot-field" />
+  <input type="text" name="firstName" value={formData.firstName || 'N/A'} readOnly />
+  <input type="text" name="lastName" value={formData.lastName || 'N/A'} readOnly />
+  <input type="email" name="email" value={formData.email || 'no-email@placeholder.com'} readOnly />
+  <input type="text" name="twitter" value={formData.twitter || 'N/A'} readOnly />
+  <input type="text" name="helpTopic" value={formData.helpTopic || 'N/A'} readOnly />
+  <input type="text" name="details" value={formData.details || 'N/A'} readOnly />
+</form>
+
 
   </div>;
 };
