@@ -202,7 +202,6 @@ const FormPage=()=>{
             <input type="text" name="twitter" defaultValue="x/Twitter" value={formData.twitter}/>
             <input type="text" name="helpTopic" value={formData.helpTopic}/>
             <input type="text" name="details" value={formData.details}/>
-            <input type="file" name="files" ref={hiddenFileInputRef} multiple/>
             <div data-netlify-recaptcha="true"></div>
         </form>
 
