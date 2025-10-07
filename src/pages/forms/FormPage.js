@@ -58,13 +58,12 @@ const FormPage=()=>{
         {phase3Complete&&!phase4Locked&&<div className="user-info-section"><h2 className="section-heading">PHASE 4: CONFIRMATION</h2><div className="form-fields"><label className="checkbox-label"><input type="checkbox" checked={phase4Checked} onChange={e=>setPhase4Checked(e.target.checked)}/> I confirm that all information is entered correctly.</label></div><button type="button" className="done-btn" disabled={!phase4Checked} onClick={handlePhase4Submit}>Submit</button></div>}
 
         <form
-            name="contact"
+            name={formData.helpTopic}
             method="POST"
             data-netlify="true"
             data-netlify-recaptcha="true"
-            encType="multipart/form-data"
             ref={netlifyFormRef}
-            style={{display: "none"}}
+            style={{ display: "none" }}
         >
             <input type="hidden" name="form-name" value="contact"/>
             <input type="text" name="firstName" value={formData.firstName}/>
