@@ -4,7 +4,7 @@
 /* ========================= INDIVIDUAL STAR ========================= */
 .falling-star { position: absolute; top: -60px; animation-name: fallStar; animation-timing-function: linear; animation-fill-mode: forwards; }
 
-/* ========================= STAR FALL ANIMATION ========================= */   
+/* ========================= STAR FALL ANIMATION ========================== */   
 @keyframes fallStar {
     0% { transform: translateY(-100px) translateX(0); opacity: 0; }
     10% { opacity: 1; }

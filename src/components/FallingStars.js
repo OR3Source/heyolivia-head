@@ -7,7 +7,7 @@ import star6 from "../assets/stars/star6.png";
 import star7 from "../assets/stars/star7.png";
 import "../assets/styles/FallingStars.css";
 
-const starImages = [star1, star2, star3, star4, star6, star7];
+const starImages = [star1, star2, star3, star4, star6, star7]; {/* Stars jpg*/}
 
 function FallingStars({ enabled = true }) {
     const [stars, setStars] = useState([]);
