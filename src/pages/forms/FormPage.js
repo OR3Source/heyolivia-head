@@ -726,57 +726,34 @@ const FormPage = () => {
 
             {/* Hidden Netlify Form */}
             <form
-                name="HL-FORMS"
-                method="POST"
-                data-netlify="true"
-                action="/"
-                netlify-honeypot="bot-field"
-                style={{ display: "none" }}
-                ref={hiddenFormRef}
-            >
-                <input type="hidden" name="form-name" value="HL-FORMS" />
-                <input type="hidden" name="bot-field" />
-                <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName || ""}
-                    readOnly
-                />
-                <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName || ""}
-                    readOnly
-                />
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email || ""}
-                    readOnly
-                />
-                <input
-                    type="text"
-                    name="twitter"
-                    value={formData.twitter || ""}
-                    readOnly
-                />
-                <input
-                    type="text"
-                    name="helpTopic"
-                    value={formData.helpTopic || ""}
-                    readOnly
-                />
-                <input
-                    type="text"
-                    name="details"
-                    value={formData.details || ""}
-                    readOnly
-                />
-                <input type="hidden" name="file0" value="" />
-                <input type="hidden" name="file1" value="" />
-                <input type="hidden" name="file2" value="" />
-                <input type="hidden" name="file3" value="" />
-            </form>
+    name="HL-FORMS"
+    method="POST"
+    data-netlify="true"
+    action="/"
+    netlify-honeypot="bot-field"
+    style={{ display: "none" }}
+    ref={hiddenFormRef}
+>
+    <input type="hidden" name="form-name" value="HL-FORMS" />
+    <input type="hidden" name="bot-field" />
+
+    <input type="text" name="firstName" value={formData.firstName || ""} readOnly />
+    <input type="text" name="lastName" value={formData.lastName || ""} readOnly />
+    <input type="email" name="email" value={formData.email || ""} readOnly />
+    <input type="text" name="twitter" value={formData.twitter || ""} readOnly />
+    <input type="text" name="helpTopic" value={formData.helpTopic || ""} readOnly />
+    <input type="text" name="details" value={formData.details || ""} readOnly />
+
+    {files.accepted.map((file, index) => (
+        <input
+            key={index}
+            type="hidden"
+            name={`file${index}`}
+            value={file.name}
+        />
+    ))}
+</form>
+
         </div>
     );
 };
