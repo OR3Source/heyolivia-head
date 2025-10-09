@@ -23,7 +23,7 @@ const FormPage = () => {
     const phase2Ref = useRef(null);
     const phase3Ref = useRef(null);
     const hiddenFormRef = useRef(null);
-    
+
     // Create refs for each file input
     const file0Ref = useRef(null);
     const file1Ref = useRef(null);
@@ -81,11 +81,11 @@ const FormPage = () => {
     // THIS IS THE KEY FIX: Update file inputs whenever files.accepted changes
     useEffect(() => {
         const fileRefs = [file0Ref, file1Ref, file2Ref, file3Ref];
-        
+
         fileRefs.forEach((ref, index) => {
             if (ref.current) {
                 const fileInput = ref.current;
-                
+
                 if (files.accepted[index]) {
                     // Attach the actual File object
                     const dataTransfer = new DataTransfer();
@@ -262,34 +262,22 @@ const FormPage = () => {
                                 className="file-status-icon"
                             />
                             <div className="file-names">
-                                {files.rejected.map(({ file }, i) => (
-                                    <div key={i} className="file-name">
-                                        {file.name}
-                                    </div>
-                                ))}
+                                <div className="file-name">
+                                    {files.rejected.length} FILE{files.rejected.length > 1 ? 'S' : ''} were rejected
+                                </div>
                             </div>
                         </div>
                         <div className="file-error-message">
-                            {files.rejected.some(
-                                (f) => f.reason === "too-many"
-                            ) ? (
-                                <div className="error-msg">
-                                    TOO MANY FILES UPLOADED
-                                </div>
-                            ) : files.rejected.some(
-                                (f) => f.reason === "invalid-type"
-                            ) ? (
-                                <div className="file-error-message">
-                                    INVALID FILE SUBMISSION
-                                </div>
-                            ) : (
-                                <div className="file-error-message">
-                                    ERROR: TRY AGAIN LATER
-                                </div>
-                            )}
+                            {files.rejected.some(f => f.reason === "too-many")
+                                ? <div className="error-msg">TOO MANY FILES UPLOADED</div>
+                                : files.rejected.some(f => f.reason === "invalid-type")
+                                    ? <div className="file-error-message">INVALID FILE SUBMISSION</div>
+                                    : <div className="file-error-message">ERROR: TRY AGAIN LATER</div>
+                            }
                         </div>
                     </div>
                 )}
+
             </div>
         );
     };
@@ -385,8 +373,7 @@ const FormPage = () => {
 
             {/* PHASE 1 */}
             <div
-                className={`user-info-section ${
-                    phase1Locked ? "locked collapsed" : ""
+                className={`user-info-section ${phase1Locked ? "locked collapsed" : ""
                 }`}
             >
                 <h2 className="section-heading">PHASE 1: USER INFO</h2>
@@ -537,8 +524,7 @@ const FormPage = () => {
             {phase1Complete && (
                 <div
                     ref={phase2Ref}
-                    className={`user-info-section ${
-                        phase2Locked ? "locked collapsed" : ""
+                    className={`user-info-section ${phase2Locked ? "locked collapsed" : ""
                     }`}
                 >
                     <h2 className="section-heading">
@@ -610,8 +596,7 @@ const FormPage = () => {
             {phase2Locked && (
                 <div
                     ref={phase3Ref}
-                    className={`user-info-section ${
-                        phase3Locked ? "locked collapsed" : ""
+                    className={`user-info-section ${phase3Locked ? "locked collapsed" : ""
                     }`}
                 >
                     <h2 className="section-heading">
@@ -653,8 +638,8 @@ const FormPage = () => {
                                     />
                                     {errors.file && (
                                         <span className="error-msg">
-                                            {errors.file}
-                                        </span>
+                                                {errors.file}
+                                            </span>
                                     )}
                                 </div>
                             )}
