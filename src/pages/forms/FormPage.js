@@ -94,12 +94,12 @@ const FormPage = () => {
                     w <= 360
                         ? 85
                         : w >= 361 && w <= 399
-                        ? 75
-                        : w >= 400 && w <= 768
-                        ? 85
-                        : w >= 769 && w <= 1024
-                        ? 95
-                        : 100;
+                            ? 75
+                            : w >= 400 && w <= 768
+                                ? 85
+                                : w >= 769 && w <= 1024
+                                    ? 95
+                                    : 100;
                 e.style.minHeight = `calc(${vh}vh + ${t}px)`;
             });
         };
@@ -263,8 +263,8 @@ const FormPage = () => {
                                     TOO MANY FILES UPLOADED
                                 </div>
                             ) : files.rejected.some(
-                                  (f) => f.reason === "invalid-type"
-                              ) ? (
+                                (f) => f.reason === "invalid-type"
+                            ) ? (
                                 <div className="file-error-message">
                                     INVALID FILE SUBMISSION
                                 </div>
@@ -708,7 +708,7 @@ const FormPage = () => {
                                     input.value = dataToSubmit[key] || "";
                             });
 
-                            // Fill file namesfefe
+                            // Fill file names
                             files.accepted.forEach((f, i) => {
                                 const input = formEl.querySelector(
                                     `[name="file${i}"]`
@@ -726,34 +726,57 @@ const FormPage = () => {
 
             {/* Hidden Netlify Form */}
             <form
-    name="HL-FORMS"
-    method="POST"
-    data-netlify="true"
-    action="/"
-    netlify-honeypot="bot-field"
-    style={{ display: "none" }}
-    ref={hiddenFormRef}
->
-    <input type="hidden" name="form-name" value="HL-FORMS" />
-    <input type="hidden" name="bot-field" />
-
-    <input type="text" name="firstName" value={formData.firstName || ""} readOnly />
-    <input type="text" name="lastName" value={formData.lastName || ""} readOnly />
-    <input type="email" name="email" value={formData.email || ""} readOnly />
-    <input type="text" name="twitter" value={formData.twitter || ""} readOnly />
-    <input type="text" name="helpTopic" value={formData.helpTopic || ""} readOnly />
-    <input type="text" name="details" value={formData.details || ""} readOnly />
-
-    {files.accepted.map((file, index) => (
-        <input
-            key={index}
-            type="hidden"
-            name={`file${index}`}
-            value={file.name}
-        />
-    ))}
-</form>
-
+                name="HL-FORMS"
+                method="POST"
+                data-netlify="true"
+                action="/"
+                netlify-honeypot="bot-field"
+                style={{ display: "none" }}
+                ref={hiddenFormRef}
+            >
+                <input type="hidden" name="form-name" value="HL-FORMS" />
+                <input type="hidden" name="bot-field" />
+                <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName || ""}
+                    readOnly
+                />
+                <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName || ""}
+                    readOnly
+                />
+                <input
+                    type="email"
+                    name="email"
+                    value={formData.email || ""}
+                    readOnly
+                />
+                <input
+                    type="text"
+                    name="twitter"
+                    value={formData.twitter || ""}
+                    readOnly
+                />
+                <input
+                    type="text"
+                    name="helpTopic"
+                    value={formData.helpTopic || ""}
+                    readOnly
+                />
+                <input
+                    type="text"
+                    name="details"
+                    value={formData.details || ""}
+                    readOnly
+                />
+                <input type="hidden" name="file0" value="" />
+                <input type="hidden" name="file1" value="" />
+                <input type="hidden" name="file2" value="" />
+                <input type="hidden" name="file3" value="" />
+            </form>
         </div>
     );
 };
