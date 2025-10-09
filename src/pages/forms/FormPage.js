@@ -772,10 +772,16 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
-                <input type="hidden" name="file0" value="" />
-                <input type="hidden" name="file1" value="" />
-                <input type="hidden" name="file2" value="" />
-                <input type="hidden" name="file3" value="" />
+                {[0, 1, 2, 3].map((i) => (
+                    <input
+                        key={i}
+                        type="hidden"
+                        name={`file${i}`}
+                        value={files.accepted[i] ? files.accepted[i].name : ""}
+                        readOnly
+                    />
+                ))}
+
             </form>
         </div>
     );
