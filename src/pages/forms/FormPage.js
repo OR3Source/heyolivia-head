@@ -780,7 +780,6 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
-                 <input type="file" name="file" />
                 {/* File inputs with refs */}
                 <input type="file" name="file0" ref={file0Ref} className="hidden-file-input" />
                 <input type="file" name="file1" ref={file1Ref} className="hidden-file-input" />
