@@ -23,6 +23,12 @@ const FormPage = () => {
     const phase2Ref = useRef(null);
     const phase3Ref = useRef(null);
     const hiddenFormRef = useRef(null);
+    
+    // Create refs for each file input
+    const file0Ref = useRef(null);
+    const file1Ref = useRef(null);
+    const file2Ref = useRef(null);
+    const file3Ref = useRef(null);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -71,6 +77,27 @@ const FormPage = () => {
             window.scrollTo({ top: t, behavior: "smooth" });
         }
     }, [phase2Locked]);
+
+    // THIS IS THE KEY FIX: Update file inputs whenever files.accepted changes
+    useEffect(() => {
+        const fileRefs = [file0Ref, file1Ref, file2Ref, file3Ref];
+        
+        fileRefs.forEach((ref, index) => {
+            if (ref.current) {
+                const fileInput = ref.current;
+                
+                if (files.accepted[index]) {
+                    // Attach the actual File object
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(files.accepted[index]);
+                    fileInput.files = dataTransfer.files;
+                } else {
+                    // Clear the file input if no file at this index
+                    fileInput.value = '';
+                }
+            }
+        });
+    }, [files.accepted]);
 
     // Dynamic height adjustment
     useEffect(() => {
@@ -695,19 +722,7 @@ const FormPage = () => {
                                     input.value = dataToSubmit[key] || "";
                             });
 
-                            // Attach actual File objects to file inputs
-                            for (let i = 0; i < 4; i++) {
-                                const fileInput = formEl.querySelector(
-                                    `[name="file${i}"]`
-                                );
-                                if (fileInput && files.accepted[i]) {
-                                    // Create a DataTransfer object to hold the file
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(files.accepted[i]);
-                                    fileInput.files = dataTransfer.files;
-                                }
-                            }
-
+                            // File objects are already attached via useEffect, so just submit
                             formEl.submit();
                         }}
                     >
@@ -764,11 +779,11 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
-                {/* Changed to file inputs instead of hidden */}
-                <input type="file" name="file0" className="hidden-file-input" />
-                <input type="file" name="file1" className="hidden-file-input" />
-                <input type="file" name="file2" className="hidden-file-input" />
-                <input type="file" name="file3" className="hidden-file-input" />
+                {/* File inputs with refs */}
+                <input type="file" name="file0" ref={file0Ref} className="hidden-file-input" />
+                <input type="file" name="file1" ref={file1Ref} className="hidden-file-input" />
+                <input type="file" name="file2" ref={file2Ref} className="hidden-file-input" />
+                <input type="file" name="file3" ref={file3Ref} className="hidden-file-input" />
             </form>
         </div>
     );
