@@ -44,7 +44,7 @@ function App() {
                    heylivies is coming soon.
                 </div>
             </div>
-            <FallingStars enabled={false}/>
+            <FallingStars enabled={true}/>
             <NavBar/>
             <Routes>
                 <Route

@@ -1,12 +1,11 @@
-// FallingStars.js
-import React, { useEffect, useState } from 'react';
-import star1 from '../assets/stars/star1.png';
-import star2 from '../assets/stars/star2.png';
-import star3 from '../assets/stars/star3.png';
-import star4 from '../assets/stars/star4.png';
-import star6 from '../assets/stars/star6.png';
-import star7 from '../assets/stars/star7.png';
-import '../assets/styles/FallingStars.css';
+import React, { useEffect, useState } from "react";
+import star1 from "../assets/stars/star1.png";
+import star2 from "../assets/stars/star2.png";
+import star3 from "../assets/stars/star3.png";
+import star4 from "../assets/stars/star4.png";
+import star6 from "../assets/stars/star6.png";
+import star7 from "../assets/stars/star7.png";
+import "../assets/styles/FallingStars.css";
 
 const starImages = [star1, star2, star3, star4, star6, star7];
 
@@ -14,44 +13,41 @@ function FallingStars({ enabled = true }) {
     const [stars, setStars] = useState([]);
 
     useEffect(() => {
-        if (!enabled) {
-            setStars([]);
-            return;
-        }
+        if (!enabled) { setStars([]); return; }
 
-        const spawnInterval = setInterval(() => {
+        const maxStars = 5;
+        const spawnIntervalMs = 600;
+
+        const interval = setInterval(() => {
             setStars(prev => {
                 const now = Date.now();
-                // keep stars longer (extra buffer)
-                const activeStars = prev.filter(star => now - star.spawnTime < (star.duration + 5) * 1000);
+                const active = prev.filter(star => now - star.spawnTime < star.duration * 1000);
+                if (active.length >= maxStars) return active;
 
-                // spawn new star (max 10 on screen)
-                if (activeStars.length < 10 && Math.random() < 0.7) {
-                    const newStar = {
-                        id: now + Math.random(),
-                        image: starImages[Math.floor(Math.random() * starImages.length)],
-                        left: Math.pow(Math.random(), 0.8) * 100, // spread across screen
-                        size: Math.random() * 15 + 20, // bigger stars
-                        duration: Math.random() * 10 + 18, // slower, longer fall
-                        rotate: Math.random() * 60 - 30,
-                        opacity: Math.random() * 0.3 + 0.5,
-                        spawnTime: now
-                    };
-                    return [...activeStars, newStar];
-                }
+                const newStar = {
+                    id: now + Math.random(),
+                    image: starImages[Math.floor(Math.random() * starImages.length)],
+                    left: Math.random() * 100,
+                    size: Math.random() * 15 + 20,
+                    duration: 6 + Math.random() * 2,
+                    rotate: Math.random() * 60 - 30,
+                    opacity: Math.random() * 0.3 + 0.6,
+                    drift: Math.random() * 40 - 20,
+                    spawnTime: now
+                };
 
-                return activeStars;
+                return [...active, newStar];
             });
-        }, 1200); // faster spawn cycle
+        }, spawnIntervalMs);
 
-        return () => clearInterval(spawnInterval);
+        return () => clearInterval(interval);
     }, [enabled]);
 
     if (!enabled) return null;
 
     return (
         <div className="falling-stars-container">
-            {stars.map((star) => (
+            {stars.map(star => (
                 <img
                     key={star.id}
                     src={star.image}
@@ -64,6 +60,7 @@ function FallingStars({ enabled = true }) {
                         animationDuration: `${star.duration}s`,
                         transform: `rotate(${star.rotate}deg)`,
                         opacity: star.opacity,
+                        "--drift": `${star.drift}px`
                     }}
                 />
             ))}
