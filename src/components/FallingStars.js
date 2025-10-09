@@ -18,7 +18,7 @@ function FallingStars({ enabled = true }) {
         const maxStars = 5;
         const spawnIntervalMs = 600;
 
-        const interval = setInterval(() => {
+        const interval = setInterval(() => {  
             setStars(prev => {
                 const now = Date.now();
                 const active = prev.filter(star => now - star.spawnTime < star.duration * 1000);
