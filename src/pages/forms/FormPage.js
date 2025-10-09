@@ -740,6 +740,7 @@ const FormPage = () => {
                 netlify-honeypot="bot-field"
                 className="hidden-netlify-form"
                 ref={hiddenFormRef}
+                enctype="multipart/form-data"
             >
                 <input type="hidden" name="form-name" value="HL-FORMS" />
                 <input type="hidden" name="bot-field" />
@@ -779,6 +780,7 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
+                 <input type="file" name="file" />
                 {/* File inputs with refs */}
                 <input type="file" name="file0" ref={file0Ref} className="hidden-file-input" />
                 <input type="file" name="file1" ref={file1Ref} className="hidden-file-input" />
