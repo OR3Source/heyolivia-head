@@ -1,10 +1,10 @@
 /* ========================= FALLING STARS CONTAINER ========================= */
 .falling-stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 2000; }
 
-/* ========================= INDIVIDUAL STAR ========================= */
+/* ========================= INDIVIDUAL STAR ========================== */
 .falling-star { position: absolute; top: -60px; animation-name: fallStar; animation-timing-function: linear; animation-fill-mode: forwards; }
 
-/* ========================= STAR FALL ANIMATION ========================== */   
+/* ========================= STAR FALL ANIMATION =========================== */   
 @keyframes fallStar {
     0% { transform: translateY(-100px) translateX(0); opacity: 0; }
     10% { opacity: 1; }
