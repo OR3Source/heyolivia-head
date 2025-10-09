@@ -184,19 +184,6 @@ const FormPage = () => {
                     ...f,
                     file: validFiles.length > 0 ? validFiles[0] : null,
                 }));
-
-                // Update hidden file fields
-                const formEl = hiddenFormRef.current;
-                if (formEl) {
-                    for (let i = 0; i < 4; i++) {
-                        const input = formEl.querySelector(`[name="file${i}"]`);
-                        if (input) {
-                            input.value = validFiles[i]
-                                ? validFiles[i].name
-                                : "";
-                        }
-                    }
-                }
             },
             accept: {
                 "image/jpeg": [".jpg", ".jpeg"],
@@ -708,13 +695,18 @@ const FormPage = () => {
                                     input.value = dataToSubmit[key] || "";
                             });
 
-                            // Fill file names
-                            files.accepted.forEach((f, i) => {
-                                const input = formEl.querySelector(
+                            // Attach actual File objects to file inputs
+                            for (let i = 0; i < 4; i++) {
+                                const fileInput = formEl.querySelector(
                                     `[name="file${i}"]`
                                 );
-                                if (input) input.value = f.name;
-                            });
+                                if (fileInput && files.accepted[i]) {
+                                    // Create a DataTransfer object to hold the file
+                                    const dataTransfer = new DataTransfer();
+                                    dataTransfer.items.add(files.accepted[i]);
+                                    fileInput.files = dataTransfer.files;
+                                }
+                            }
 
                             formEl.submit();
                         }}
@@ -731,7 +723,7 @@ const FormPage = () => {
                 data-netlify="true"
                 action="/"
                 netlify-honeypot="bot-field"
-                style={{ display: "none" }}
+                className="hidden-netlify-form"
                 ref={hiddenFormRef}
             >
                 <input type="hidden" name="form-name" value="HL-FORMS" />
@@ -772,16 +764,11 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
-                {[0, 1, 2, 3].map((i) => (
-                    <input
-                        key={i}
-                        type="hidden"
-                        name={`file${i}`}
-                        value={files.accepted[i] ? files.accepted[i].name : ""}
-                        readOnly
-                    />
-                ))}
-
+                {/* Changed to file inputs instead of hidden */}
+                <input type="file" name="file0" className="hidden-file-input" />
+                <input type="file" name="file1" className="hidden-file-input" />
+                <input type="file" name="file2" className="hidden-file-input" />
+                <input type="file" name="file3" className="hidden-file-input" />
             </form>
         </div>
     );

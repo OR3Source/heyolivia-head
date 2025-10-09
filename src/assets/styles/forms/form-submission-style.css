@@ -108,3 +108,22 @@
     .username-field .at-symbol { padding: .65rem; font-size: .95rem; }
     .username-field input { padding: .65rem; font-size: .95rem; }
 }
+
+/* Hide the Netlify form completely */
+.hidden-netlify-form {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Hide the file inputs within the form */
+.hidden-file-input {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
