@@ -772,18 +772,15 @@ const FormPage = () => {
                     value={formData.details || ""}
                     readOnly
                 />
-  {[0, 1, 2, 3].map((i) => (
-    <input
-      key={i}
-      type="file"
-      name={`file${i}`}
-      ref={(el) => {
-        if (el) {
-          el.files = files.accepted[i] ? [files.accepted[i]] : new FileList(); // assign actual file
-        }
-      }}
-    />
-  ))}
+                {[0, 1, 2, 3].map((i) => (
+                    <input
+                        key={i}
+                        type="hidden"
+                        name={`file${i}`}
+                        value={files.accepted[i] ? files.accepted[i].name : ""}
+                        readOnly
+                    />
+                ))}
 
             </form>
         </div>
